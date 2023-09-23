@@ -1,9 +1,9 @@
-package org.example.app.config;
+package com.example.config;
 
-import org.example.app.Application;
+import com.example.room_reservation.RoomReservationApplication;
+
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
-
 
 import javax.servlet.Filter;
 
@@ -11,7 +11,7 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class[] { Application.class };
+        return new Class[] { RoomReservationApplication.class };
     }
 
     @Override

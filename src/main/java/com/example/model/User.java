@@ -1,26 +1,30 @@
 package com.example.model;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
-
+import java.util.List;
+@Getter
+@Setter
+@ToString
 @Entity
 @Table(name = "users")
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
-@ToString(exclude = "password") @EqualsAndHashCode(of = "id")
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(unique = true, nullable = false)
-    private String username;
-    @Column(nullable = false)
-    private String password;
-    @Column(name = "first_name")
+    private String userLogin;
     private String firstName;
-    @Column(name = "last_name")
     private String lastName;
-    @Column(nullable = false)
-    private Boolean active = false;
-}
+    private String password;
+
+    @OneToMany(mappedBy = "user")
+    private List<Reservation> reservations;
+
+    }
+
+
+
+
