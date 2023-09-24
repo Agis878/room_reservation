@@ -1,6 +1,4 @@
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
-
 <%--<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>--%>
 <html>
 <head>
@@ -21,31 +19,27 @@
     <div class="row">
         <div class="col-1"></div>
         <div class="col-6">
-            <%--@elvariable id="user" type="user"--%>
-            <form:form method="post" modelAttribute="user">
+            <form method="post" action="/register">
+                <div class="form-group">
+                    <label for="username">Nazwa użytkownika</label>
+                    <input type="text" required name="username" id="username" class="form-control" placeholder="Podaj nazwę użytkownika"/>
+                </div>
                 <div class="form-group">
                     <label for="firstName">Imię</label>
-                    <form:input path="firstName" placeholder="Podaj imię"/>
+                    <input type="text" required name="firstName" id="firstName" class="form-control" placeholder="Podaj imię"/>
                 </div>
                 <div class="form-group">
                     <label for="lastName">Nazwisko</label>
-                    <form:input path="lastName" placeholder="Podaj nazwisko"/>
-
-                </div>
-                <div class="form-group">
-                    <label for="userLogin">Login</label>
-                    <form:input path="userLogin" placeholder="Podaj login"/>
-
+                    <input type="text" required name="lastName" id="lastName" class="form-control" placeholder="Podaj nazwisko"/>
                 </div>
                 <div class="form-group">
                     <label for="password">Hasło</label>
-                    <form:input path="password" placeholder="Podaj hasło"/>
+                    <input type="password" required name="password" id="password" class="form-control" placeholder="Podaj hasło"/>
                 </div>
-
-                <form:button class="btn btn-primary">Zarejestruj</form:button>
+                <button class="btn btn-primary" type="submit">Zarejestruj</button>
                 <button class="btn btn-secondary" type="reset">Wyczyść dane</button>
-
-            </form:form>
+                <sec:csrfInput/>
+            </form>
         </div>
         <div class="col-5"></div>
     </div>

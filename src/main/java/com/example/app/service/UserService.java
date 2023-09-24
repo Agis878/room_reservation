@@ -7,35 +7,18 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 @Service
-public class UserService {
+public interface UserService {
 
-    private final UserRepository userRepository;
 
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    List<User>findAll();
+    Optional<User> findById(Long id) ;
 
-    public List<User>findAll() {
-        return userRepository.findAll();
-    }
-    public Optional<User> findById(Long id) {
-        return userRepository.findById(id);
-    }
-    public void updateUser(User user) {
-        userRepository.save(user);
-    }
-    public void deleteUser(User user) {
-        userRepository.delete(user);
-    }
-    public Optional<User> findByLoginAndPassword(String login, String password) {
-       return userRepository.findUserByLoginAndPassword(login,password);
-    }
+    void updateUser(User user) ;
 
-    public UserRepository getUserRepository() {
-        return userRepository;
-    }
+    void deleteUser(User user);
 
-    public void saveUser(User user) {
-        userRepository.save(user);
-    }
+    Optional<User> findByLoginAndPassword(String login, String password)     ;
+
+    void saveUser(User user) ;
+
 }
