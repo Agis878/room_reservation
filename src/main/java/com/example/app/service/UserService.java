@@ -1,7 +1,7 @@
-package com.example.service;
+package com.example.app.service;
 
-import com.example.model.User;
-import com.example.repositories.UserRepository;
+import com.example.app.model.User;
+import com.example.app.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

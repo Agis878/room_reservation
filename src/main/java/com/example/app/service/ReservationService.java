@@ -1,7 +1,7 @@
-package com.example.service;
+package com.example.app.service;
 
-import com.example.model.Reservation;
-import com.example.repositories.ReservationRepository;
+import com.example.app.model.Reservation;
+import com.example.app.repositories.ReservationRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

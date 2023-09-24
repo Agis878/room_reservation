@@ -1,7 +1,7 @@
-package com.example.service;
+package com.example.app.service;
 
-import com.example.model.Room;
-import com.example.repositories.RoomRepository;
+import com.example.app.model.Room;
+import com.example.app.repositories.RoomRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
