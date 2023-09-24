@@ -10,9 +10,13 @@ import java.time.LocalDate;
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long id;
+        @Column(name = "reservation_start")
         private LocalDate reservationStartDate;
+    @Column(name = "reservation_end")
         private LocalDate reservationEndDate;
+    @Column(name = "reservation_status")
         private String reservationStatus;
+    @Column(name = "reservation_date")
         private LocalDate reservationDate;
 
         @ManyToOne

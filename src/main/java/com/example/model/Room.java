@@ -10,7 +10,9 @@ public class Room {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    @Column(name = "saets_qty")
     private int seatsQty;
+    @Column(name = "available_status")
     private String availableStatus;
 
     @OneToMany(mappedBy = "room")
