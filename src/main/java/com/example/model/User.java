@@ -7,6 +7,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
+
 @Data
 @ToString
 @Entity
@@ -17,7 +18,7 @@ public class User {
     private Long id;
     @Column(name = "user_login")
     private String userLogin;
-    @Column(name ="first_name")
+    @Column(name = "first_name")
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
@@ -29,7 +30,7 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Reservation> reservations;
 
-    }
+}
 
 
 
