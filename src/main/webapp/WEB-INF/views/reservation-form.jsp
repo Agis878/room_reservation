@@ -13,7 +13,7 @@
 </head>
 <body>
 <form:form method="post" modelAttribute="reservation">
-    Room: <form:select path="room" items="${rooms}" itemLabel="name" itemValue="id"/><br/>
+    Room: <form:select path="room.id" items="${rooms}" itemLabel="name" itemValue="id"/><br/>
     Reservation start date <form:input path="reservationStartDate" type="date" class="form-control form-control-lg" id="fromBookingDate" placeholder="dd/MM/yyyy"/><br/>
     Reservation finish date: <form:input path="reservationEndDate" type="date" class="form-control form-control-lg" id="fromBookingDate" placeholder="dd/MM/yyyy"/><br/>
 <form:hidden path="user"/>
