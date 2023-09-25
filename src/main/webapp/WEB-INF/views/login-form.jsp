@@ -31,8 +31,8 @@
             </c:if>
             <form method="post" action="login" >
                 <div class="form-group">
-                    <label for="username">Nazwa użytkownika</label>
-                    <input type="text" required name="username" id="username" class="form-control" placeholder="Podaj nazwę użytkownika"/>
+                    <label for="userLogin">Login</label>
+                    <input type="text" required name="userLogin" id="userLogin" class="form-control" placeholder="Podaj nazwę użytkownika"/>
                 </div>
                 <div class="form-group">
                     <label for="password">Hasło</label>

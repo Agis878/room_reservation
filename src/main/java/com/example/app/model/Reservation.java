@@ -5,6 +5,8 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Data
 @ToString
 @Entity
@@ -29,5 +31,15 @@ public class Reservation {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @PrePersist
+    public void prePersist() {
+        reservationDate = LocalDate.from(LocalDateTime.now());
+        if (reservationEndDate.isAfter(LocalDate.now())) {
+            reservationStatus = "Aktywny";
+        } else {
+            reservationStatus = "Zakończony";
+        }
+    }
 
 }

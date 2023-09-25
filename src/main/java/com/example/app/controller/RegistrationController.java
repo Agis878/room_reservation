@@ -40,6 +40,6 @@ public class RegistrationController {
         System.out.println("3");
         user.setRole("user");
         userService.saveUser(user);
-        return "redirect: login";
+        return "redirect:/login";
     }
 }
