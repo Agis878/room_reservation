@@ -42,6 +42,8 @@ public class UserController {
         if (bindingResult.hasErrors()) {
     return "/reservation-form";
         }
+
+
         reservationRepository.save(reservation);
         System.out.println("dodano rezervarcj");
         return "redirect:/login/user";
