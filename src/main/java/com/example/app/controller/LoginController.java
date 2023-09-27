@@ -34,14 +34,15 @@ public class LoginController {
 //        model.addAttribute("user", new User());
         if (userToLogin.isPresent()) {
             User user = userToLogin.get();
+
             String userRole = user.getRole();
             if ("admin".equals(userRole)) {
 
-                return "redirect:/login/admin";
+                return "redirect:/admin";
             } else if ("user".equals(userRole)) {
 
                 System.out.println("widok usera");
-                return "redirect:/login/user";
+                return "redirect:/user";
             }
         }
 

@@ -40,7 +40,7 @@ public class ReservationService {
         LocalDate currentDate = LocalDate.now();
 
         for (Reservation reservation : reservations) {
-            if (reservation.getReservationEndDate().isBefore(currentDate)) {
+            if (LocalDate.parse(reservation.getReservationEndDate()).isBefore(currentDate)) {
                 reservation.setReservationStatus("Zakończona");
             } else {
                 reservation.setReservationStatus("Aktywna");

@@ -13,7 +13,7 @@
 </head>
 <body>
 <h1>Witaj na stronie rezerwacji</h1>
-<a href="<c:url value="/login/user/add"/>">Dodaj rezerwację</a>
+<a href="<c:url value="/user/add"/>">Dodaj rezerwację</a>
 
 
 <h1>Lista moich rezerwacji</h1>

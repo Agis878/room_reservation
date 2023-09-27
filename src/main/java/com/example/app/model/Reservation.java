@@ -16,9 +16,11 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "reservation_start")
-    private LocalDate reservationStartDate;
+//    private LocalDate reservationStartDate;
+    private String reservationStartDate;
     @Column(name = "reservation_end")
-    private LocalDate reservationEndDate;
+//    private LocalDate reservationEndDate;
+    private String reservationEndDate;
     @Column(name = "reservation_status")
     private String reservationStatus;
     @Column(name = "reservation_date")
@@ -35,7 +37,7 @@ public class Reservation {
     @PrePersist
     public void prePersist() {
         reservationDate = LocalDate.from(LocalDateTime.now());
-        if (reservationEndDate.isAfter(LocalDate.now())) {
+        if (LocalDate.parse(reservationEndDate).isAfter(LocalDate.now())) {
             reservationStatus = "Aktywny";
         } else {
             reservationStatus = "Zakończony";

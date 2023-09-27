@@ -6,19 +6,21 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
 @Service
 public interface UserService {
 
 
-    List<User>findAll();
-    Optional<User> findById(Long id) ;
+    List<User> findAll();
 
-    void updateUser(User user) ;
+    Optional<User> findById(Long id);
+
+    void updateUser(User user);
 
     void deleteUser(User user);
 
-    Optional<User> findByLoginAndPassword(String login, String password)     ;
+    Optional<User> findByLoginAndPassword(String login, String password);
 
-    void saveUser(User user) ;
+    void saveUser(User user);
 
 }
