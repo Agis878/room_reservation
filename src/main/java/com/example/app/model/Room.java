@@ -21,6 +21,14 @@ public class Room {
     @OneToMany(mappedBy = "room", fetch = FetchType.EAGER)
     private List<Reservation> reservations;
 
-
-
+    @Override
+    public String toString() {
+        return "Room{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", seatsQty=" + seatsQty +
+                ", availableStatus='" + availableStatus + '\'' +
+                ", reservations=" + reservations +
+                '}';
+    }
 }

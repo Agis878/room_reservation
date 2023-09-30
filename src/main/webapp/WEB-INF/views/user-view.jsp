@@ -22,6 +22,7 @@
         <thead>
         <tr>
             <th>ID</th>
+            <th>Room</th>
             <th>Start Date</th>
             <th>End Date</th>
             <th>Status</th>
@@ -33,12 +34,13 @@
         <c:forEach var="reservation" items="${reservationList}">
             <tr>
                 <td>${reservation.id}</td>
+                <td>${reservation.room.name}</td>
                 <td>${reservation.reservationStartDate}</td>
                 <td>${reservation.reservationEndDate}</td>
                 <td>${reservation.reservationStatus}</td>
                 <td>
-                     <a href="<c:out value="/login/user/update?id=${reservation.id}"/>">Edytuj</a>
-                     <a href="<c:out value="/login/user/delete?id=${reservation.id}"/>">Usuń</a>
+                     <a href="<c:out value="/user/update?id=${reservation.id}"/>">Edytuj</a>
+                     <a href="<c:out value="/user/delete?id=${reservation.id}"/>">Usuń</a>
                 </td>
 
             </tr>

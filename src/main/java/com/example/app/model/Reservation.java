@@ -47,14 +47,15 @@ public class Reservation {
         }
     }
 
-//    @Override
-//    public String toString() {
-//        return "Reservation{" +
-//                "id=" + id +
-//                ", reservationStartDate=" + reservationStartDate +
-//                ", reservationEndDate=" + reservationEndDate +
-//                ", reservationStatus='" + reservationStatus + '\'' +
-//                '}';
-//    }
+    @Override
+    public String toString() {
+        return "Reservation{" +
+                "id=" + id +
+                ", reservationStartDate=" + reservationStartDate +
+                ", reservationEndDate=" + reservationEndDate +
+                ", reservationStatus='" + reservationStatus + '\'' +
+                ", room=" + room.getName() +
+                '}';
+    }
 
 }
