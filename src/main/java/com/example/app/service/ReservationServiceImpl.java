@@ -24,6 +24,14 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
 
+
+    public List<Reservation> findAllByReservationStatus(String s) {
+      return reservationRepository.findAllByReservationStatus(s);
+    }
+
+
+
+
     public boolean addReservation(Reservation reservation) {
         if (isValidReservation(reservation)) {
             reservationRepository.save(reservation);
@@ -35,7 +43,6 @@ public class ReservationServiceImpl implements ReservationService {
 
     private boolean isValidReservation(Reservation reservation) {
         LocalDate currentDate = LocalDate.now();
-
 
         return reservation.getReservationStartDate().isBefore(reservation.getReservationEndDate()) && !reservation.getReservationStartDate().isBefore(currentDate) && isRoomAvailable(reservation);
     }

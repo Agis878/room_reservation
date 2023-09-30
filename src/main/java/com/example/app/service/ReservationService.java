@@ -10,6 +10,8 @@ public interface ReservationService {
 
     List<Reservation> findAll();
 
+    List<Reservation>findAllByReservationStatus(String reservationStatus);
+
     boolean addReservation(Reservation reservation);
 
     Optional<Reservation> findById(Long id);
