@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%--<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>--%>
 
 <html>
@@ -29,7 +30,7 @@
                     </button>
                 </div>
             </c:if>
-            <form method="post" action="login" >
+            <form method="post" action="login">
                 <div class="form-group">
                     <label for="userLogin">Login</label>
                     <input type="text" required name="userLogin" id="userLogin" class="form-control" placeholder="Podaj nazwę użytkownika"/>
@@ -37,6 +38,7 @@
                 <div class="form-group">
                     <label for="password">Hasło</label>
                     <input type="password" required name="password" id="password" class="form-control" placeholder="Podaj hasło"/>
+
                 </div>
                 <button class="btn btn-primary" type="submit">Zaloguj</button>
                 <button class="btn btn-secondary" type="reset">Wyczyść dane</button>

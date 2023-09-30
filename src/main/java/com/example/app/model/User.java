@@ -14,7 +14,9 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "user_login")
+
+
+    @Column(name = "user_login", unique = true)
     private String userLogin;
     @Column(name = "first_name")
     private String firstName;
@@ -24,7 +26,8 @@ public class User {
     private String role;
 
     private String password;
-
+    // @EqualsAndHashcode.Exclude
+    @ToString.Exclude
     @OneToMany(mappedBy = "user")
     private List<Reservation> reservations;
 

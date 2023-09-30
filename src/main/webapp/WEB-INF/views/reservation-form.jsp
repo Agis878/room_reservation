@@ -12,13 +12,14 @@
     <title>Dodawanie rezerwacji</title>
 </head>
 <body>
+<%--@elvariable id="reservation" type=""--%>
 <form:form method="post" modelAttribute="reservation">
     Room: <form:select path="room.id" items="${rooms}" itemLabel="name" itemValue="id"/><br/>
     Reservation start date <form:input path="reservationStartDate" type="date" class="form-control form-control-lg"
                                        id="fromBookingDate"/><br/>
     Reservation finish date: <form:input path="reservationEndDate" type="date" class="form-control form-control-lg"
                                          id="fromBookingDate"/><br/>
-<%--    <form:hidden path="user" value="${user.userLogin}" id="user"/>--%>
+    <form:hidden path="user" value="${loggedUser.id}" id="user"/>
     <form:button>Dodaj</form:button>
 </form:form>
 

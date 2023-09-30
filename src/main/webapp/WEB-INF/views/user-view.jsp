@@ -17,50 +17,35 @@
 
 
 <h1>Lista moich rezerwacji</h1>
-<table border="1">
+<c:if test="${not empty reservationList}">
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Status</th>
+            <th>Action</th>
+            <!-- Add more columns if needed -->
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach var="reservation" items="${reservationList}">
+            <tr>
+                <td>${reservation.id}</td>
+                <td>${reservation.reservationStartDate}</td>
+                <td>${reservation.reservationEndDate}</td>
+                <td>${reservation.reservationStatus}</td>
+                <td>
+                     <a href="<c:out value="/login/user/update?id=${reservation.id}"/>">Edytuj</a>
+                     <a href="<c:out value="/login/user/delete?id=${reservation.id}"/>">Usuń</a>
+                </td>
 
-    <thead>
-    <th>ID</th>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+</c:if>
 
-    <th>isbn</th>
-
-    <th>title</th>
-
-    <th>author</th>
-
-    <th>action</th>
-
-    </thead>
-
-    <tbody>
-
-<%--    <c:forEach items="${}" var="book">--%>
-
-<%--        <tr>--%>
-
-<%--            <td><c:out value="${book.id}"/></td>--%>
-<%--            <td><c:out value="${book.isbn}"/></td>--%>
-
-<%--            <td><c:out value="${book.title}"/></td>--%>
-
-<%--            <td><c:out value="${book.author}"/></td>--%>
-
-<%--            <td>--%>
-
-<%--                <a href="<c:out value="/login/user/update?id=${book.id}"/>">Edytuj</a>--%>
-
-<%--                <a href="<c:out value="/login/user/delete?id=${book.id}"/>">Usuń</a>--%>
-
-
-
-<%--            </td>--%>
-
-<%--        </tr>--%>
-
-<%--    </c:forEach>--%>
-
-    </tbody>
-
-</table>
 </body>
 </html>

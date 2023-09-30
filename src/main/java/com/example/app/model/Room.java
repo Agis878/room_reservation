@@ -6,7 +6,6 @@ import lombok.ToString;
 import javax.persistence.*;
 import java.util.List;
 @Data
-@ToString
 @Entity
 @Table(name = "rooms")
 public class Room {
@@ -19,7 +18,9 @@ public class Room {
     @Column(name = "available_status")
     private String availableStatus;
 
-    @OneToMany(mappedBy = "room")
+    @OneToMany(mappedBy = "room", fetch = FetchType.EAGER)
     private List<Reservation> reservations;
+
+
 
 }

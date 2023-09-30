@@ -9,38 +9,52 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
 @Controller
 @RequestMapping("/login")
 public class LoginController {
-    private final UserRepository userRepository;
+    private final UserRepository userService;
 
-    public LoginController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public LoginController(UserRepository userService) {
+        this.userService = userService;
     }
 
-    @GetMapping
+        @GetMapping
     public String showLoginForm() {
         return "login-form"; // Zwraca widok formularza logowania
     }
+//    @GetMapping
+//    public String showLoginForm(Model model, @RequestParam Long id) {
+//        model.addAttribute("user", userService.findById(id));
+//        return "login-form"; // Zwraca widok formularza logowania
+//    }
+
+
+//    @PostMapping
+//    public String login(Model model, HttpSession session, @Param("userId") Long id) {
+//        Optional<User> userToLogin = userService.findById(id);
+//        return "login-form";
+//    }
+
 
     @PostMapping
-    public String login(Model model, @Param("userLogin") String userLogin, @Param("password") String password) {
+    public String login(Model model, @Param("userLogin") String userLogin, @Param("password") String password, HttpSession session) {
 
-        Optional<User> userToLogin = userRepository.findUserByLoginAndPassword(userLogin, password);
+        Optional<User> userToLogin = userService.findUserByLoginAndPassword(userLogin, password);
 
-//        model.addAttribute("user", new User());
         if (userToLogin.isPresent()) {
             User user = userToLogin.get();
-
             String userRole = user.getRole();
-            if ("admin".equals(userRole)) {
 
+            session.setAttribute("loggedUser", user);
+
+            if ("admin".equals(userRole)) {
                 return "redirect:/admin";
             } else if ("user".equals(userRole)) {
-
                 System.out.println("widok usera");
                 return "redirect:/user";
             }

@@ -8,15 +8,16 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class JpaUserService implements UserService {
+public class UserServiceImpl implements UserService{
 
     private final UserRepository userRepository;
 
-    public JpaUserService(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-    public List<User>findAll() {
+
+    public List<User> findAll() {
         return userRepository.findAll();
     }
     public Optional<User> findById(Long id) {
@@ -32,11 +33,8 @@ public class JpaUserService implements UserService {
        return userRepository.findUserByLoginAndPassword(login,password);
     }
 
-    public UserRepository getUserRepository() {
-        return userRepository;
+    public User save(User user) {
+       return userRepository.save(user);
     }
 
-    public void saveUser(User user) {
-        userRepository.save(user);
-    }
 }
