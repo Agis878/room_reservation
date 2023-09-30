@@ -23,12 +23,33 @@ public class ReservationServiceImpl implements ReservationService {
         return reservationRepository.findAll();
     }
 
-    public void addReservation(Reservation reservation) {
-        reservationRepository.save(reservation);
+
+    public boolean addReservation(Reservation reservation) {
+        if (isValidReservation(reservation)) {
+            reservationRepository.save(reservation);
+            return true;
+        } else {
+            return false;
+        }
     }
 
+    private boolean isValidReservation(Reservation reservation) {
+        LocalDate currentDate = LocalDate.now();
+
+
+        return reservation.getReservationStartDate().isBefore(reservation.getReservationEndDate()) && !reservation.getReservationStartDate().isBefore(currentDate) && isRoomAvailable(reservation);
+    }
+
+    private boolean isRoomAvailable(Reservation reservation) {
+
+        List<Reservation> overlappingReservations = reservationRepository.findOverlappingReservations(reservation.getRoom(), reservation.getReservationStartDate(), reservation.getReservationEndDate(), reservation.getId());
+
+        return overlappingReservations.isEmpty();
+    }
+
+
     public Optional<Reservation> findById(Long id) {
-       return reservationRepository.findById(id);
+        return reservationRepository.findById(id);
     }
 
     public void updateReservation(Reservation reservation) {
@@ -42,6 +63,7 @@ public class ReservationServiceImpl implements ReservationService {
     public List<Reservation> findAllByUser(User user) {
         return reservationRepository.findAllByUser(user);
     }
+
 
     @Scheduled(cron = "0 0 * * * *") // Aktualizacja co godzinę
     public void updateReservationStatus() {

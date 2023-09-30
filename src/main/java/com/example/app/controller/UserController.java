@@ -10,10 +10,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.validation.FieldError;
 import javax.persistence.EntityNotFoundException;
+import javax.validation.Valid;
 import java.awt.print.Book;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Controller
@@ -47,17 +49,38 @@ public class UserController {
     }
 
     @PostMapping("/add")
-    public String addReservation(Reservation reservation, BindingResult bindingResult, Model model) {
+    public String addReservation(@Valid Reservation reservation, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
+
+            model.addAttribute("errors", bindingResult.getFieldErrors().stream()
+                    .collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage)));
+
             model.addAttribute("rooms", roomService.findAll());
+
             return "reservation-form";
         }
 
-        reservationService.addReservation(reservation);
-        System.out.println("dodano rezervarcj");
-        return "redirect:/user";
+        boolean reservationAdded = reservationService.addReservation(reservation);
+
+        if (reservationAdded) {
+            System.out.println("Dodano rezerwację");
+
+            return "redirect:/user";
+        } else {
+
+            model.addAttribute("rooms", roomService.findAll());
+            model.addAttribute("error", "Rezerwacja nie może być dodana z powodu konfliktu dat.");
+
+            return "reservation-form";
+        }
     }
+
+
+//        reservationService.addReservation(reservation);
+//        System.out.println("dodano rezervarcj");
+//        return "redirect:/user";
+//    }
 
     @GetMapping("/delete")
     public String getDeleteView(Model model, @RequestParam Long id) {
@@ -85,7 +108,7 @@ public class UserController {
     }
 
     @PostMapping("/update")
-    public String updateAuthor(Reservation reservation, BindingResult bindingResult,Model model) {
+    public String updateAuthor(@Valid Reservation reservation, BindingResult bindingResult,Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("rooms", roomService.findAll());
             return "/update-view";

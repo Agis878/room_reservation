@@ -1,10 +1,12 @@
 package com.example.app.model;
 
+
 import lombok.Data;
-import lombok.ToString;
-import org.springframework.format.annotation.DateTimeFormat;
+import javax.validation.constraints.FutureOrPresent;
+
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -15,11 +17,14 @@ public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotNull
+    @FutureOrPresent(message = "Start date must be in the present or future")
     @Column(name = "reservation_start")
     private LocalDate reservationStartDate;
-//    private String reservationStartDate;
 
-
+    @NotNull(message = "Data zakończenia nie może być pusta")
+    @FutureOrPresent(message = "Data zakończenia musi być w przyszłości lub dzisiaj")
     @Column(name = "reservation_end")
     private LocalDate reservationEndDate;
 

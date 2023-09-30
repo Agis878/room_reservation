@@ -27,18 +27,6 @@ public class LoginController {
     public String showLoginForm() {
         return "login-form"; // Zwraca widok formularza logowania
     }
-//    @GetMapping
-//    public String showLoginForm(Model model, @RequestParam Long id) {
-//        model.addAttribute("user", userService.findById(id));
-//        return "login-form"; // Zwraca widok formularza logowania
-//    }
-
-
-//    @PostMapping
-//    public String login(Model model, HttpSession session, @Param("userId") Long id) {
-//        Optional<User> userToLogin = userService.findById(id);
-//        return "login-form";
-//    }
 
 
     @PostMapping

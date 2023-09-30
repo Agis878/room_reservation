@@ -4,6 +4,8 @@ import lombok.Data;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Data
@@ -15,9 +17,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
+    @NotBlank
     @Column(name = "user_login", unique = true)
     private String userLogin;
+
     @Column(name = "first_name")
     private String firstName;
     @Column(name = "last_name")
@@ -25,6 +28,7 @@ public class User {
     @Column(name = "role")
     private String role;
 
+    @NotBlank
     private String password;
     // @EqualsAndHashcode.Exclude
     @ToString.Exclude

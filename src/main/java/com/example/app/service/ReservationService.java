@@ -10,7 +10,7 @@ public interface ReservationService {
 
     List<Reservation> findAll();
 
-    void addReservation(Reservation reservation);
+    boolean addReservation(Reservation reservation);
 
     Optional<Reservation> findById(Long id);
 
@@ -19,6 +19,7 @@ public interface ReservationService {
     void deleteReservation(Long id);
 
 
-    void updateReservationStatus();
     List<Reservation> findAllByUser(User user);
+
+
 }
