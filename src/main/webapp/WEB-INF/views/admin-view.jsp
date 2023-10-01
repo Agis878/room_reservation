@@ -9,47 +9,49 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>Zestawienie Rezerwacji</title>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/styles.css">
+    <title>Reports</title>
 </head>
 <body>
 
+<a href="/logout">Log out</a><br>
+<h2>Dashboard</h2>
 
-<p>Generuj raport</p>
+<h3>Select report</h3>
 
-<div>Status rezerwacji</div>
+<h4>Reservation status</h4>
 <form action="${pageContext.request.contextPath}/admin/report_1" method="get">
-    <%--@declare id="reservationtype"--%><label for="reservationType">Rodzaj Rezerwacji:</label>
+    <%--@declare id="reservationtype"--%><label for="reservationType">Reservation status:</label>
 
-    <input type="radio" name="reservationType" value="active" id="active"> <label for="active">Aktywne</label>
-    <input type="radio" name="reservationType" value="finished" id="finished"> <label for="finished">Zakończone</label>
-    <input type="radio" name="reservationType" value="all" id="all" checked> <label for="all">Wszystkie</label>
-    <button type="submit">Generuj Zestawienie</button>
+    <input type="radio" name="reservationType" value="active" id="active"> <label for="active">Active</label>
+    <input type="radio" name="reservationType" value="finished" id="finished"> <label for="finished">Finished</label>
+    <input type="radio" name="reservationType" value="all" id="all" checked> <label for="all">All</label><br/><br/>
+    <button type="submit">Generate report</button>
     <br/><br/>
 </form>
 
 
-<div>Rezerwacje użytkowników</div>
+<h4>Users reservations</h4>
 
 <form action="${pageContext.request.contextPath}/admin/report_2" method="get">
 
 
-<%--@declare id="userselectiontype"--%><label for="userSelectionType">Rodzaj Wyboru Użytkowników:</label>
-<input type="radio" name="userSelectionType" value="all" id="wszyscy" checked> <label for="wszyscy">Wszyscy Użytkownicy</label>
-<input type="radio" name="userSelectionType" value="current" id="wybrani"> <label for="wybrani">Wybrani Użytkownicy</label>
+<%--@declare id="userselectiontype"--%><label for="userSelectionType">Select users:</label>
+<input type="radio" name="userSelectionType" value="all" id="allUsers" checked> <label for=allUsers>All</label>
+<input type="radio" name="userSelectionType" value="current" id="chosen"> <label for="chosen">Select user</label>
 
-<!-- Dodaj rozwijaną listę tylko w przypadku, gdy wybrano "Wybrani Użytkownicy" -->
-<%--<select name="selectedUsersId" id="selectedUsers" multiple style="display:none;">--%>
+
     <select name="selectedUsersId" id="selectedUsers"  style="display:none;">
     <c:forEach var="user" items="${userList}">
         <option value="${user.id}">${user.userLogin}</option>
-        <!-- Ustaw odpowiednie wartości i etykiety dla swojego modelu User -->
+
     </c:forEach>
-    <!-- Dodaj więcej opcji według potrzeb -->
+
 </select>
 
     <br/><br/>
 
-    <button type="submit">Generuj Zestawienie</button>
+    <button type="submit">Generate report</button>
     <br/><br/>
 
 </form>
@@ -64,6 +66,7 @@
         });
     }
 </script>
+<a href="/user">Go back</a>
 </body>
 </html>
 

@@ -24,11 +24,11 @@
             <%--@elvariable id="user" type="user"--%>
             <form:form method="post" modelAttribute="user">
                 <div class="form-group">
-                    <label for="firstName">Imię</label>
+                    <label for="firstName">First Name</label>
                     <form:input path="firstName" placeholder="Podaj imię"/>
                 </div>
                 <div class="form-group">
-                    <label for="lastName">Nazwisko</label>
+                    <label for="lastName">Last Name</label>
                     <form:input path="lastName" placeholder="Podaj nazwisko"/>
 
                 </div>
@@ -38,12 +38,12 @@
 
                 </div>
                 <div class="form-group">
-                    <label for="password">Hasło</label>
+                    <label for="password">Password</label>
                     <form:input path="password" placeholder="Podaj hasło"/>
                 </div>
 
-                <form:button class="btn btn-primary">Zarejestruj</form:button>
-                <button class="btn btn-secondary" type="reset">Wyczyść dane</button>
+                <form:button class="btn btn-primary">Register</form:button>
+                <button class="btn btn-secondary" type="reset">Clean</button>
 
             </form:form>
         </div>

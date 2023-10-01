@@ -9,14 +9,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>user</title>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/styles.css">
 </head>
 <body>
-<h1>Witaj na stronie rezerwacji</h1>
-<a href="<c:url value="/user/add"/>">Dodaj rezerwację</a>
+
+<h1>Welcome ${loggedUser.userLogin}!</h1>
+
+<a href="/logout">Wyloguj się</a>
+<a href="<c:url value="/user/add"/>">Add reservation</a>
 
 
-<h1>Lista moich rezerwacji</h1>
+<h1>Reservation list</h1>
 <c:if test="${not empty reservationList}">
     <table>
         <thead>
@@ -27,7 +31,7 @@
             <th>End Date</th>
             <th>Status</th>
             <th>Action</th>
-            <!-- Add more columns if needed -->
+
         </tr>
         </thead>
         <tbody>

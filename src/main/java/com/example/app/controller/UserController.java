@@ -33,6 +33,7 @@ public class UserController {
 
     @GetMapping
     public String getUserView(@SessionAttribute("loggedUser") User loggedUser, Model model) {
+        model.addAttribute("loggedUser", loggedUser);
         model.addAttribute("reservationList",reservationService.findAllByUser(loggedUser));
         return "user-view";
     }
@@ -43,7 +44,6 @@ public class UserController {
         model.addAttribute("loggedUser", loggedUser);
         model.addAttribute("reservation", new Reservation());
         model.addAttribute("rooms", roomService.findAll());
-
         return "/reservation-form";
 
     }
@@ -52,35 +52,23 @@ public class UserController {
     public String addReservation(@Valid Reservation reservation, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
-
             model.addAttribute("errors", bindingResult.getFieldErrors().stream()
                     .collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage)));
-
             model.addAttribute("rooms", roomService.findAll());
-
             return "reservation-form";
         }
 
         boolean reservationAdded = reservationService.addReservation(reservation);
-
         if (reservationAdded) {
             System.out.println("Dodano rezerwację");
-
             return "redirect:/user";
         } else {
-
             model.addAttribute("rooms", roomService.findAll());
             model.addAttribute("error", "Rezerwacja nie może być dodana z powodu konfliktu dat.");
-
             return "reservation-form";
         }
     }
 
-
-//        reservationService.addReservation(reservation);
-//        System.out.println("dodano rezervarcj");
-//        return "redirect:/user";
-//    }
 
     @GetMapping("/delete")
     public String getDeleteView(Model model, @RequestParam Long id) {

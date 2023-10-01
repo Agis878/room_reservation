@@ -9,22 +9,23 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>report2</title>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/styles.css">
 </head>
 <body>
 
-<h2>Lista Rezerwacji</h2>
+<h2>Reservation list</h2>
 
 <table border="1">
     <thead>
     <tr>
         <th>ID</th>
-        <th>Data Rozpoczęcia</th>
-        <th>Data Zakończenia</th>
+        <th>Start date</th>
+        <th>End date</th>
         <th>Status</th>
-        <th>Data Rezerwacji</th>
-        <th>Pokój</th>
-        <th>Użytkownik</th>
+        <th>Reservation date</th>
+        <th>Room</th>
+        <th>User</th>
     </tr>
     </thead>
     <tbody>
@@ -36,12 +37,12 @@
             <td>${reservation.reservationStatus}</td>
             <td>${reservation.reservationDate}</td>
             <td>${reservation.room.name}</td>
-            <td>${reservation.user}</td>
+            <td>${reservation.user.userLogin}</td>
         </tr>
     </c:forEach>
     </tbody>
 </table>
-
+<a href="/user">Go back</a>
 
 </body>
 </html>

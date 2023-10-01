@@ -4,7 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Edytuj autora</title>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/styles.css">
+    <title>Reservation update</title>
 </head>
 <body>
 <%--@elvariable id="reservation" type=""--%>
@@ -18,7 +19,8 @@
     <form:hidden path="reservationStatus"/></td>
     <form:hidden path="user" value="${loggedUser.id}" id="user"/>
     <form:hidden path="id"/>
-    <form:button>Save</form:button>
+    <form:button>Save changes</form:button>
 </form:form>
+<a href="/user">Go back</a>
 </body>
 </html>

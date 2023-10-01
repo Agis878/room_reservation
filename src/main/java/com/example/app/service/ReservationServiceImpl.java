@@ -48,14 +48,11 @@ public class ReservationServiceImpl implements ReservationService {
 
     private boolean isValidReservation(Reservation reservation) {
         LocalDate currentDate = LocalDate.now();
-
         return reservation.getReservationStartDate().isBefore(reservation.getReservationEndDate()) && !reservation.getReservationStartDate().isBefore(currentDate) && isRoomAvailable(reservation);
     }
 
     private boolean isRoomAvailable(Reservation reservation) {
-
         List<Reservation> overlappingReservations = reservationRepository.findOverlappingReservations(reservation.getRoom(), reservation.getReservationStartDate(), reservation.getReservationEndDate(), reservation.getId());
-
         return overlappingReservations.isEmpty();
     }
 

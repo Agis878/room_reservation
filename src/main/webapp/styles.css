@@ -1,0 +1,29 @@
+/* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 20px;
+}
+
+h1 {
+    color: #333;
+}
+
+a, button {
+    display: inline-block;
+    padding: 10px 15px;
+    margin: 5px;
+    text-align: center;
+    text-decoration: none;
+    color: #333;
+    background-color: #66b2ff;
+    border: none;
+    border-radius: 5px; /* Zaokrąglenie rogów */
+    cursor: pointer;
+}
+
+a:hover, button:hover {
+    background-color: #3399ff;
+}
+
+/* Dodaj resztę stylów według potrzeb */

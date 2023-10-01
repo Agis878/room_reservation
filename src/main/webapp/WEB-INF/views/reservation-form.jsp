@@ -9,23 +9,16 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Dodawanie rezerwacji</title>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/styles.css">
+    <title>Add reservation</title>
 </head>
 <body>
-<%-- Display error message if present --%>
+
+<h1>Add reservation</h1>
 <c:if test="${not empty error}">
     <p style="color: red;">${error}</p>
 </c:if>
-<%-- Wyświetl błędy walidacji dla pola reservationStartDate --%>
-<c:if test="${not empty errors.reservationStartDate}">
-    <p style="color: red;">${errors.reservationStartDate[0]}</p>
-</c:if>
 
-<%-- Wyświetl błędy walidacji dla pola reservationEndDate --%>
-<c:if test="${not empty errors.reservationEndDate}">
-    <p style="color: red;">${errors.reservationEndDate[0]}</p>
-</c:if>
-<%--@elvariable id="reservation" type=""--%>
 <form:form method="post" modelAttribute="reservation">
     Room: <form:select path="room.id" items="${rooms}" itemLabel="name" itemValue="id"/><br/>
     Reservation start date <form:input path="reservationStartDate" type="date" class="form-control form-control-lg"
@@ -33,9 +26,9 @@
     Reservation finish date: <form:input path="reservationEndDate" type="date" class="form-control form-control-lg"
                                          id="fromBookingDate"/><form:errors path="reservationEndDate"/> <br/>
     <form:hidden path="user" value="${loggedUser.id}" id="user"/>
-    <form:errors path="*"/>
-    <form:button>Dodaj</form:button>
-</form:form>
 
+    <form:button>Add reservation</form:button>
+</form:form>
+<a href="/user">Go back</a>
 </body>
 </html>

@@ -10,6 +10,7 @@
 <html>
 <head>
     <title>Delete reservation</title>
+    <link rel="stylesheet" type="text/css" href="href="${pageContext.request.contextPath}/css/styles.css">
 </head>
 <body>
 <p>Do you like to remove your reservation "${reservation.id}"?</p>

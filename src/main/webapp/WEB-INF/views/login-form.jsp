@@ -16,7 +16,7 @@
 <div class="container">
     <div class="row" style="margin-top: 40px">
         <div class="col-1"></div>
-        <div class="col-10" style="padding-bottom: 20px"><h2>Logowanie</h2></div>
+        <div class="col-10" style="padding-bottom: 20px"><h2>Login page</h2></div>
         <div class="col-1"></div>
     </div>
     <div class="row">
@@ -33,15 +33,15 @@
             <form method="post" action="login">
                 <div class="form-group">
                     <label for="userLogin">Login</label>
-                    <input type="text" required name="userLogin" id="userLogin" class="form-control" placeholder="Podaj nazwę użytkownika"/>
+                    <input type="text" required name="userLogin" id="userLogin" class="form-control" placeholder="Login"/>
                 </div>
                 <div class="form-group">
-                    <label for="password">Hasło</label>
-                    <input type="password" required name="password" id="password" class="form-control" placeholder="Podaj hasło"/>
+                    <label for="password">Password</label>
+                    <input type="password" required name="password" id="password" class="form-control" placeholder="Password"/>
 
                 </div>
-                <button class="btn btn-primary" type="submit">Zaloguj</button>
-                <button class="btn btn-secondary" type="reset">Wyczyść dane</button>
+                <button class="btn btn-primary" type="submit">Login</button>
+                <button class="btn btn-secondary" type="reset">Clean</button>
 <%--                <sec:csrfInput/>--%>
             </form>
         </div>

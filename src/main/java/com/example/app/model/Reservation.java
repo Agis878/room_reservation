@@ -18,13 +18,13 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+    @NotNull(message = "Start date cannot be blank")
     @FutureOrPresent(message = "Start date must be in the present or future")
     @Column(name = "reservation_start")
     private LocalDate reservationStartDate;
 
-    @NotNull(message = "Data zakończenia nie może być pusta")
-    @FutureOrPresent(message = "Data zakończenia musi być w przyszłości lub dzisiaj")
+    @NotNull(message = "End date cannot be blank")
+    @FutureOrPresent(message = "End date must be in the present or future")
     @Column(name = "reservation_end")
     private LocalDate reservationEndDate;
 
