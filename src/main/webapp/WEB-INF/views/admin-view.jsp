@@ -1,71 +1,71 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: agnieszka
+  Date: 24.09.2023
+  Time: 22:06
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>Zestawienie Rezerwacji</title>
 </head>
 <body>
 
-<h2>Zestawienie Rezerwacji</h2>
 
-<form action="/zestawienie" method="post">
+<p>Generuj raport</p>
 
-    <label for="reservationType">Rodzaj Rezerwacji:</label>
-    <input type="radio" name="reservationType" value="aktywne" id="aktywne"> <label for="aktywne">Aktywne</label>
-    <input type="radio" name="reservationType" value="zakonczone" id="zakonczone"> <label for="zakonczone">Zakończone</label>
-    <input type="radio" name="reservationType" value="wszystkie" id="wszystkie" checked> <label for="wszystkie">Wszystkie</label>
+<div>Status rezerwacji</div>
+<form action="${pageContext.request.contextPath}/admin/report_1" method="get">
+    <%--@declare id="reservationtype"--%><label for="reservationType">Rodzaj Rezerwacji:</label>
+
+    <input type="radio" name="reservationType" value="active" id="active"> <label for="active">Aktywne</label>
+    <input type="radio" name="reservationType" value="finished" id="finished"> <label for="finished">Zakończone</label>
+    <input type="radio" name="reservationType" value="all" id="all" checked> <label for="all">Wszystkie</label>
+    <button type="submit">Generuj Zestawienie</button>
+    <br/><br/>
+</form>
+
+
+<div>Rezerwacje użytkowników</div>
+
+<form action="${pageContext.request.contextPath}/admin/report_2" method="get">
+
+
+<%--@declare id="userselectiontype"--%><label for="userSelectionType">Rodzaj Wyboru Użytkowników:</label>
+<input type="radio" name="userSelectionType" value="all" id="wszyscy" checked> <label for="wszyscy">Wszyscy Użytkownicy</label>
+<input type="radio" name="userSelectionType" value="current" id="wybrani"> <label for="wybrani">Wybrani Użytkownicy</label>
+
+<!-- Dodaj rozwijaną listę tylko w przypadku, gdy wybrano "Wybrani Użytkownicy" -->
+<%--<select name="selectedUsersId" id="selectedUsers" multiple style="display:none;">--%>
+    <select name="selectedUsersId" id="selectedUsers"  style="display:none;">
+    <c:forEach var="user" items="${userList}">
+        <option value="${user.id}">${user.userLogin}</option>
+        <!-- Ustaw odpowiednie wartości i etykiety dla swojego modelu User -->
+    </c:forEach>
+    <!-- Dodaj więcej opcji według potrzeb -->
+</select>
 
     <br/><br/>
-
-    <label for="userSelection">Wybierz Użytkownika:</label>
-    <input type="radio" name="userSelectionType" value="wszyscy" id="wszyscy" checked> <label for="wszyscy">Wszyscy</label>
-    <input type="radio" name="userSelectionType" value="wybierz" id="wybierz"> <label for="wybierz">Wybierz z listy:</label>
-
-    <!-- Dodaj rozwijaną listę tylko w przypadku, gdy wybrano "Wybierz z listy" -->
-    <select name="selectedUser" id="selectedUser" style="display:none;">
-        <!-- Tutaj możesz dodać dynamicznie generowane opcje na podstawie listy użytkowników -->
-        <option value="1">Użytkownik 1</option>
-        <option value="2">Użytkownik 2</option>
-        <!-- Dodaj więcej opcji według potrzeb -->
-    </select>
-    <br/><br/>
-
-
 
     <button type="submit">Generuj Zestawienie</button>
     <br/><br/>
 
 </form>
 
-<form action="/generuj-raport-datowy" method="post">
-
-    <br/><br/>
-
-    <label for="dateFrom">Data Od:</label>
-    <input type="date" name="dateFrom" id="dateFrom">
-
-    <label for="dateTo">Data Do:</label>
-    <input type="date" name="dateTo" id="dateTo">
-
-    <br/><br/>
-    <button type="submit">Generuj Raport Datowy</button>
-
-</form>
-
 <script>
-    document.querySelector('input[name="userSelectionType"]').addEventListener('change', function () {
-        const selectedUsers = document.getElementById('selectedUsers');
-        selectedUsers.style.display = this.value === 'wybierz' ? 'block' : 'none';
-    });
+    const userSelectionType = document.getElementsByName('userSelectionType');
+    const selectedUsers = document.getElementById('selectedUsers');
 
-    document.querySelector('input[name="dateSelectionType"]').addEventListener('change', function () {
-        const dateFields = document.querySelectorAll('#dateFrom, #dateTo');
-        dateFields.forEach(field => {
-            field.style.display = this.value === 'wybierzDaty' ? 'block' : 'none';
+    for (let i = 0; i < userSelectionType.length; i++) {
+        userSelectionType[i].addEventListener('change', function () {
+            selectedUsers.style.display = this.value === 'current' ? 'block' : 'none';
         });
-    });
+    }
 </script>
-
 </body>
 </html>
+
 
 

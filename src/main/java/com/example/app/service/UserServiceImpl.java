@@ -4,6 +4,7 @@ import com.example.app.model.User;
 import com.example.app.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,9 +33,10 @@ public class UserServiceImpl implements UserService{
     public Optional<User> findByLoginAndPassword(String login, String password) {
        return userRepository.findUserByLoginAndPassword(login,password);
     }
-
     public User save(User user) {
        return userRepository.save(user);
     }
+
+
 
 }

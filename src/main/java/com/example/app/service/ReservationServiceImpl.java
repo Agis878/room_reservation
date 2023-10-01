@@ -24,13 +24,18 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
 
+    public List<Reservation> findAllByReservationStatus(String reservationStatus) {
 
-    public List<Reservation> findAllByReservationStatus(String s) {
-      return reservationRepository.findAllByReservationStatus(s);
+        if (reservationStatus.equals("active")) {
+            return reservationRepository.findAllByReservationStatus(reservationStatus);
+
+        } else if (reservationStatus.equals("finished")) {
+            return reservationRepository.findAllByReservationStatus(reservationStatus);
+
+        } else {
+            return reservationRepository.findAll();
+        }
     }
-
-
-
 
     public boolean addReservation(Reservation reservation) {
         if (isValidReservation(reservation)) {
@@ -79,9 +84,9 @@ public class ReservationServiceImpl implements ReservationService {
 
         for (Reservation reservation : reservations) {
             if (reservation.getReservationEndDate().isBefore(currentDate)) {
-                reservation.setReservationStatus("Zakończona");
+                reservation.setReservationStatus("finished");
             } else {
-                reservation.setReservationStatus("Aktywna");
+                reservation.setReservationStatus("active");
             }
         }
         reservationRepository.saveAll(reservations);

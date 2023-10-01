@@ -1,6 +1,7 @@
 package com.example.app.controller;
 
 import com.example.app.model.Reservation;
+import com.example.app.model.User;
 import com.example.app.service.ReservationService;
 import com.example.app.service.RoomService;
 import com.example.app.service.UserService;
@@ -31,31 +32,37 @@ public class AdminController {
 
     @GetMapping
     public String getAdminView(Model model) {
+
         model.addAttribute("userList", userService.findAll());
         model.addAttribute("roomList", roomService.findAll());
         model.addAttribute("reservationList",reservationService.findAll());
-       return "/admin-view";
+       return "admin-view";
     }
 
     @GetMapping("/report_1")
-    public String getReportByReservationStatus(Model model, @RequestParam String reservationType) {
-        // reservationService.findAllByReservationStatus(reservationType);
+    public String getReportByReservationStatus(Model model, @RequestParam(defaultValue = "all") String reservationType) {
+        List<Reservation> reservationsByStatus = reservationService.findAllByReservationStatus(reservationType);
 
-        if (reservationType.equals("Aktywny")) {
-            List<Reservation> reservationsActive = reservationService.findAllByReservationStatus(reservationType);
-            model.addAttribute("activeReservations", reservationsActive);
-        } else if (reservationType.equals("Zakończony")) {
-            List<Reservation> reservationsFinished = reservationService.findAllByReservationStatus(reservationType);
-        model.addAttribute("finishedReservations", reservationsFinished);
-        } else {
-            List<Reservation> reservationsAll = reservationService.findAll();
-            model.addAttribute("allReservations", reservationsAll);
-        }
+        model.addAttribute("reservations", reservationsByStatus);
 
-        return "/report-1";
+        return "report-reservation-status";
     }
-//    @PostMapping("/report_1")
-//    public String getReportOneView();
-//
+
+    @GetMapping("/report_2")
+    public String findUsers(@RequestParam(name = "userSelectionType") String userSelectionType,
+                            @RequestParam(name = "selectedUsersId") Long selectedUserId,
+                            Model model) {
+        model.addAttribute("userList", userService.findAll());
+        if (userSelectionType.equals("all")) {
+            model.addAttribute("reservations", reservationService.findAll());
+        } else {
+            User selectedUser = userService.findById(selectedUserId).orElse(null);
+            List<Reservation> reservationsForCurrentUser = reservationService.findAllByUser(selectedUser);
+            model.addAttribute("reservationsForCurrentUser", reservationsForCurrentUser);
+            // Dodaj prostą weryfikację na konsoli, aby sprawdzić zawartość atrybutu
+            System.out.println("Reservations for current user: " + reservationsForCurrentUser);
+        }
+        return "report-users";
+    }
 
 }

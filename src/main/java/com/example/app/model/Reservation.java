@@ -46,9 +46,9 @@ public class Reservation {
     public void prePersist() {
         reservationDate = LocalDate.from(LocalDateTime.now());
         if (reservationEndDate.isAfter(LocalDate.now())) {
-            reservationStatus = "Aktywny";
+            reservationStatus = "active";
         } else {
-            reservationStatus = "Zakończony";
+            reservationStatus = "finished";
         }
     }
 
