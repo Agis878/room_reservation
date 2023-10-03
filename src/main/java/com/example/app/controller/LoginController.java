@@ -27,40 +27,12 @@ public class LoginController {
     }
 
     @GetMapping("/login")
-    public String showLoginForm() {
-        return "login-form"; // Zwraca widok formularza logowania
-    }
-
-
-    @PostMapping("/login")
-    public String login(Model model, @Param("userLogin") String userLogin, @Param("password") String password, HttpSession session) {
-
-        Optional<User> userToLogin = userService.findByLoginAndPassword(userLogin, password);
-
-        if (userToLogin.isPresent()) {
-            User user = userToLogin.get();
-            String userRole = user.getRole();
-
-            session.setAttribute("loggedUser", user);
-
-            if ("admin".equals(userRole)) {
-                return "redirect:/admin";
-            } else if ("user".equals(userRole)) {
-                System.out.println("widok usera");
-                return "redirect:/user";
-            }
-        }
-
-        model.addAttribute("error", "Błędne dane logowania");
+    public String getLoginView() {
         return "login-form";
     }
 
     @GetMapping("/logout")
-    public String logout(HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        if (session != null) {
-            session.invalidate(); // Usuń sesję
-        }
+    public String getLogoutView() {
         return "redirect:/login";
     }
 }

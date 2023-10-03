@@ -30,13 +30,19 @@ public class UserServiceImpl implements UserService{
     public void deleteUser(User user) {
         userRepository.delete(user);
     }
-    public Optional<User> findByLoginAndPassword(String login, String password) {
-       return userRepository.findUserByLoginAndPassword(login,password);
-    }
+    //    public Optional<User> findByLoginAndPassword(String login, String password) {
+//       return userRepository.findUserByLoginAndPassword(login,password);
+//    }
     public User save(User user) {
-       return userRepository.save(user);
+        return userRepository.save(user);
     }
 
+    public User getByUsername(String username) {
+        return userRepository.getByUsername(username);
+    }
 
+    public User getUserWithReservationsByUserName(String name) {
+        return userRepository.getWithReservationsByUsername(name);
+    }
 
 }

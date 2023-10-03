@@ -3,6 +3,7 @@ package com.example.app.controller;
 import com.example.app.model.User;
 import com.example.app.repositories.UserRepository;
 import com.example.app.service.UserService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,8 +18,13 @@ import javax.validation.Valid;
 @RequestMapping("/register")
 public class RegistrationController {
 
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
     private final UserService userService;
-    public RegistrationController(UserService userService) {
+
+    public RegistrationController(UserRepository userRepository, PasswordEncoder passwordEncoder, UserService userService) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
         this.userService = userService;
     }
 
@@ -30,13 +36,15 @@ public class RegistrationController {
     }
 
     @PostMapping
-    public String registrationUser(@Valid User user , BindingResult bindingResult) {
+    public String processRegistrationForm(@Valid User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "registration";
         }
-        System.out.println("3");
-        user.setRole("user");
-        userService.save(user);
+
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRole("ROLE_USER");
+        user.setActive(true);
+        userRepository.save(user);
         return "redirect:/login";
     }
 }

@@ -6,11 +6,14 @@ import com.example.app.model.User;
 import com.example.app.service.ReservationService;
 import com.example.app.service.RoomService;
 import com.example.app.service.UserService;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.FieldError;
+
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import java.awt.print.Book;
@@ -32,21 +35,25 @@ public class UserController {
     }
 
     @GetMapping
-    public String getUserView(@SessionAttribute("loggedUser") User loggedUser, Model model) {
+    public String getUserView(@AuthenticationPrincipal UserDetails authenticatedUser, Model model) {
+        User loggedUser = userService.getUserWithReservationsByUserName(authenticatedUser.getUsername());
+        //        User loggedUser = userService.getByUsername(authenticatedUser.getUsername());
         model.addAttribute("loggedUser", loggedUser);
-        model.addAttribute("reservationList",reservationService.findAllByUser(loggedUser));
+        model.addAttribute("reservationList", loggedUser.getReservations());
         return "user-view";
     }
 
-    @GetMapping("add")
-    public String addReservationForm(@SessionAttribute("loggedUser") User loggedUser, Model model) {
 
+    @GetMapping("add")
+    public String addReservationForm(@AuthenticationPrincipal UserDetails authenticatedUser, Model model) {
+        User loggedUser = userService.getUserWithReservationsByUserName(authenticatedUser.getUsername());
         model.addAttribute("loggedUser", loggedUser);
         model.addAttribute("reservation", new Reservation());
         model.addAttribute("rooms", roomService.findAll());
         return "/reservation-form";
 
     }
+
 
     @PostMapping("/add")
     public String addReservation(@Valid Reservation reservation, BindingResult bindingResult, Model model) {
@@ -60,26 +67,25 @@ public class UserController {
 
         boolean reservationAdded = reservationService.addReservation(reservation);
         if (reservationAdded) {
-            System.out.println("Dodano rezerwację");
             return "redirect:/user";
         } else {
             model.addAttribute("rooms", roomService.findAll());
-            model.addAttribute("error", "Rezerwacja nie może być dodana z powodu konfliktu dat.");
+            model.addAttribute("error", "The reservation cannot be added due to a date conflict.");
             return "reservation-form";
         }
     }
 
-
     @GetMapping("/delete")
     public String getDeleteView(Model model, @RequestParam Long id) {
-        Optional<Reservation> reservationToDelete= reservationService.findById(id);
-        if(reservationToDelete.isPresent()) {
+        Optional<Reservation> reservationToDelete = reservationService.findById(id);
+        if (reservationToDelete.isPresent()) {
             model.addAttribute("reservation", reservationToDelete.get());
             return "delete-view";
         } else {
             throw new EntityNotFoundException();
         }
     }
+
     @PostMapping("/delete")
     public String deleteReservation(@RequestParam Long id) {
 
@@ -88,7 +94,9 @@ public class UserController {
     }
 
     @GetMapping("/update")
-    public String getUpdateView(@SessionAttribute("loggedUser") User loggedUser, Model model, @RequestParam Long id) {
+    public String getUpdateView(@AuthenticationPrincipal UserDetails authenticatedUser, Model model, @RequestParam Long id) {
+        User loggedUser = userService.getByUsername(authenticatedUser.getUsername());
+
         model.addAttribute("loggedUser", loggedUser);
         model.addAttribute("reservation", reservationService.findById(id));
         model.addAttribute("rooms", roomService.findAll());
@@ -96,15 +104,22 @@ public class UserController {
     }
 
     @PostMapping("/update")
-    public String updateAuthor(@Valid Reservation reservation, BindingResult bindingResult,Model model) {
+    public String updateAuthor(@Valid Reservation reservation, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("errors", bindingResult.getFieldErrors().stream()
+                    .collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage)));
             model.addAttribute("rooms", roomService.findAll());
-            return "/update-view";
+            return "update-view";
         }
-        reservationService.updateReservation(reservation);
-        return "redirect:/user";
+
+        boolean reservationAdded = reservationService.addReservation(reservation);
+        if (reservationAdded) {
+            System.out.println("Dodano rezerwację");
+            return "redirect:/user";
+        } else {
+            model.addAttribute("rooms", roomService.findAll());
+            model.addAttribute("error", "The reservation cannot be added due to a date conflict.");
+            return "update-view";
+        }
     }
-
-
-
 }

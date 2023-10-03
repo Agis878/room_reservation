@@ -13,10 +13,10 @@
     <title>Reports</title>
 </head>
 <body>
-
-<a href="/logout">Log out</a><br>
+<div  class="navbar">
+<a href="/logout">Logout</a><br>
 <h2>Dashboard</h2>
-
+</div>
 <h3>Select report</h3>
 
 <h4>Reservation status</h4>
@@ -66,7 +66,7 @@
         });
     }
 </script>
-<a href="/user">Go back</a>
+
 </body>
 </html>
 

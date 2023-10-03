@@ -22,7 +22,7 @@
         <div class="col-1"></div>
         <div class="col-6">
             <%--@elvariable id="user" type="user"--%>
-            <form:form method="post" modelAttribute="user">
+            <form:form method="post"  modelAttribute="user">
                 <div class="form-group">
                     <label for="firstName">First Name</label>
                     <form:input path="firstName" placeholder="Podaj imię"/>
@@ -33,13 +33,14 @@
 
                 </div>
                 <div class="form-group">
-                    <label for="userLogin">Login</label>
-                    <form:input path="userLogin" placeholder="Podaj login"/>
-
+                    <label for="username">Login</label>
+                    <form:input path="username" placeholder="Podaj login"/>
+                    <form:errors path="username"/>
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
                     <form:input path="password" placeholder="Podaj hasło"/>
+                    <form:errors path="password"/>
                 </div>
 
                 <form:button class="btn btn-primary">Register</form:button>

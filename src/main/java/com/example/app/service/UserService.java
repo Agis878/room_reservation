@@ -17,10 +17,12 @@ public interface UserService {
 
     void deleteUser(User user);
 
-    Optional<User> findByLoginAndPassword(String login, String password);
+//    Optional<User> findByLoginAndPassword(String login, String password);
 
     User save(User user);
 
+    User getByUsername(String name);
 
+    User getUserWithReservationsByUserName(String name);
 
 }
