@@ -5,7 +5,6 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Data
@@ -18,19 +17,27 @@ public class User {
     private Long id;
 
     @NotBlank
-    @Column(name = "user_login", unique = true)
-    private String userLogin;
+    @Column(name = "username", unique = true, nullable = false)
+    private String username;
+
+    @NotBlank
+    @Column(nullable = false)
+    private String password;
 
     @Column(name = "first_name")
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
-    @Column(name = "role")
+
+    @Column(name = "role", nullable = false)
     private String role;
 
-    @NotBlank
-    private String password;
+    @Column(nullable = false)
+    private Boolean active = false;
+
+
     // @EqualsAndHashcode.Exclude
+
     @ToString.Exclude
     @OneToMany(mappedBy = "user")
     private List<Reservation> reservations;
