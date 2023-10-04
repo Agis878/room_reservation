@@ -14,7 +14,7 @@
 </head>
 <body>
 
-<h1>Add reservation</h1>
+<h2>Add reservation</h2>
 <c:if test="${not empty error}">
     <p style="color: red;">${error}</p>
 </c:if>

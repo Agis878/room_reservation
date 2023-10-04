@@ -1,72 +1,89 @@
+<%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>--%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: agnieszka
-  Date: 01.10.2023
-  Time: 09:26
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/styles.css">
-    <title>report1</title>
+    <title>report-users</title>
 </head>
 <body>
 
-<h2>Reservation list</h2>
+<h2>Users reservations</h2>
 
-<table th:if="${reservations != null}">
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Start date</th>
-        <th>End date</th>
-        <th>Status</th>
-        <th>Reservation date</th>
-        <th>Room</th>
-        <th>User</th>
-    </tr>
-    </thead>
-    <tbody>
+<c:choose>
+    <c:when test="${not empty reservations}">
+        <c:set var="noReservationsMessage" value="${reservations.isEmpty() ? 'No reservations available' : null}" />
+    </c:when>
+    <c:when test="${not empty reservationsForCurrentUser}">
+        <c:set var="noReservationsMessage" value="${reservationsForCurrentUser.isEmpty() ? 'No reservations for the current user' : null}" />
+    </c:when>
+    <c:otherwise>
+        <c:set var="noReservationsMessage" value="${empty reservations ? 'No reservations available' : null}" />
+    </c:otherwise>
+</c:choose>
 
-
-    <c:forEach var="reservation" items="${reservations}">
+<c:if test="${not empty reservations}">
+    <table class="styled-table">>
+        <thead>
         <tr>
-            <td>${reservation.id}</td>
-            <td>${reservation.reservationStartDate}</td>
-            <td>${reservation.reservationEndDate}</td>
-            <td>${reservation.reservationStatus}</td>
-            <td>${reservation.reservationDate}</td>
-            <td>${reservation.room.name}</td>
-            <td>${reservation.user.userLogin}</td>
+            <th>ID</th>
+            <th>Start date</th>
+            <th>End date</th>
+            <th>Status</th>
+            <th>Reservation date</th>
+            <th>Room</th>
+            <th>User</th>
         </tr>
-    </c:forEach>
+        </thead>
+        <tbody>
+        <c:forEach var="reservation" items="${reservations}">
+            <tr>
+                <td>${reservation.id}</td>
+                <td>${reservation.reservationStartDate}</td>
+                <td>${reservation.reservationEndDate}</td>
+                <td>${reservation.reservationStatus}</td>
+                <td>${reservation.reservationDate}</td>
+                <td>${reservation.room.name}</td>
+                <td>${reservation.user.username}</td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+</c:if>
 
-    </tbody>
-</table>
-
-<!-- Warunek sprawdzający, czy atrybut "reservationsForCurrentUser" istnieje w modelu -->
-<table th:if="${reservationsForCurrentUser != null}">
-
-    <tbody>
-    <!-- Iteracja przez listę rezerwacji dla bieżącego użytkownika i wyświetlanie wierszy tabeli -->
-    <c:forEach var="reservation" items="${reservationsForCurrentUser}">
+<c:if test="${not empty reservationsForCurrentUser}">
+    <table>
+        <thead>
         <tr>
-            <td>${reservation.id}</td>
-            <td>${reservation.reservationStartDate}</td>
-            <td>${reservation.reservationEndDate}</td>
-            <td>${reservation.reservationStatus}</td>
-            <td>${reservation.reservationDate}</td>
-            <td>${reservation.room.name}</td>
-            <td>${reservation.user.userLogin}</td>
+            <th>ID</th>
+            <th>Start date</th>
+            <th>End date</th>
+            <th>Status</th>
+            <th>Reservation date</th>
+            <th>Room</th>
+            <th>User</th>
         </tr>
-    </c:forEach>
+        </thead>
+        <tbody>
+        <c:forEach var="reservation" items="${reservationsForCurrentUser}">
+            <tr>
+                <td>${reservation.id}</td>
+                <td>${reservation.reservationStartDate}</td>
+                <td>${reservation.reservationEndDate}</td>
+                <td>${reservation.reservationStatus}</td>
+                <td>${reservation.reservationDate}</td>
+                <td>${reservation.room.name}</td>
+                <td>${reservation.user.username}</td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+</c:if>
 
-    </tr>
-    </tbody>
-</table>
-<a href="/user">Go back</a>
 
+<a href="/admin">Go back</a>
 </body>
 </html>
+
+

@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html>
 <head>
     <title>user</title>
@@ -14,15 +15,20 @@
 </head>
 <body>
 
-<h1>Welcome ${loggedUser.userLogin}!</h1>
-
-<a href="/logout">Wyloguj się</a>
-<a href="<c:url value="/user/add"/>">Add reservation</a>
+<div class="navbar">
+    <div class="left">
+        <h2>Welcome ${loggedUser.username}!</h2>
+    </div>
+    <div class="right">
+        <a href="/logout">Logout</a>
+    </div>
+</div>
+<a href="<c:url value="/user/add"/>" >Add reservation</a>
 
 
 <h1>Reservation list</h1>
 <c:if test="${not empty reservationList}">
-    <table>
+    <table class="styled-table">
         <thead>
         <tr>
             <th>ID</th>
@@ -43,8 +49,10 @@
                 <td>${reservation.reservationEndDate}</td>
                 <td>${reservation.reservationStatus}</td>
                 <td>
-                     <a href="<c:out value="/user/update?id=${reservation.id}"/>">Edytuj</a>
-                     <a href="<c:out value="/user/delete?id=${reservation.id}"/>">Usuń</a>
+                    <sec:authorize access="isAuthenticated()">
+                        <a href="<c:out value="/user/update?id=${reservation.id}" />" class="small-button">Update</a>
+                        <a href="<c:out value="/user/delete?id=${reservation.id}"/>" class="small-button">Delete</a>
+                    </sec:authorize>
                 </td>
 
             </tr>

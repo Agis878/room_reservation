@@ -10,13 +10,14 @@
 <html>
 <head>
     <title>report2</title>
+
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/styles.css">
 </head>
 <body>
 
 <h2>Reservation list</h2>
 
-<table border="1">
+<table class="styled-table">
     <thead>
     <tr>
         <th>ID</th>
@@ -37,12 +38,12 @@
             <td>${reservation.reservationStatus}</td>
             <td>${reservation.reservationDate}</td>
             <td>${reservation.room.name}</td>
-            <td>${reservation.user.userLogin}</td>
+            <td>${reservation.user.username}</td>
         </tr>
     </c:forEach>
     </tbody>
 </table>
-<a href="/user">Go back</a>
+<a href="/admin">Go back</a>
 
 </body>
 </html>

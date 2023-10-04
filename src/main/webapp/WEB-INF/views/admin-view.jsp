@@ -13,10 +13,15 @@
     <title>Reports</title>
 </head>
 <body>
-<div  class="navbar">
-<a href="/logout">Logout</a><br>
-<h2>Dashboard</h2>
+<div class="navbar">
+    <div class="left">
+        <h2>Dashboard</h2>
+    </div>
+    <div class="right">
+        <a href="/logout">Logout</a>
+    </div>
 </div>
+
 <h3>Select report</h3>
 
 <h4>Reservation status</h4>
@@ -26,32 +31,32 @@
     <input type="radio" name="reservationType" value="active" id="active"> <label for="active">Active</label>
     <input type="radio" name="reservationType" value="finished" id="finished"> <label for="finished">Finished</label>
     <input type="radio" name="reservationType" value="all" id="all" checked> <label for="all">All</label><br/><br/>
-    <button type="submit">Generate report</button>
+    <button type="submit" class="small-button">Generate report</button>
     <br/><br/>
 </form>
 
-
+<hr>
 <h4>Users reservations</h4>
 
 <form action="${pageContext.request.contextPath}/admin/report_2" method="get">
 
 
-<%--@declare id="userselectiontype"--%><label for="userSelectionType">Select users:</label>
-<input type="radio" name="userSelectionType" value="all" id="allUsers" checked> <label for=allUsers>All</label>
-<input type="radio" name="userSelectionType" value="current" id="chosen"> <label for="chosen">Select user</label>
+    <%--@declare id="userselectiontype"--%><label for="userSelectionType">Select users:</label>
+    <input type="radio" name="userSelectionType" value="all" id="allUsers" checked> <label for=allUsers>All</label>
+    <input type="radio" name="userSelectionType" value="current" id="chosen"> <label for="chosen">Select user</label>
 
 
     <select name="selectedUsersId" id="selectedUsers"  style="display:none;">
-    <c:forEach var="user" items="${userList}">
-        <option value="${user.id}">${user.userLogin}</option>
+        <c:forEach var="user" items="${userList}">
+            <option value="${user.id}">${user.username}</option>
 
-    </c:forEach>
+        </c:forEach>
 
-</select>
+    </select>
 
     <br/><br/>
 
-    <button type="submit">Generate report</button>
+    <button type="submit" class="small-button">Generate report</button>
     <br/><br/>
 
 </form>

@@ -104,7 +104,8 @@ public class UserController {
     }
 
     @PostMapping("/update")
-    public String updateAuthor(@Valid Reservation reservation, BindingResult bindingResult, Model model) {
+    public String updateReservation(@Valid Reservation reservation, BindingResult bindingResult, Model model) {
+
         if (bindingResult.hasErrors()) {
             model.addAttribute("errors", bindingResult.getFieldErrors().stream()
                     .collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage)));
@@ -114,7 +115,6 @@ public class UserController {
 
         boolean reservationAdded = reservationService.addReservation(reservation);
         if (reservationAdded) {
-            System.out.println("Dodano rezerwację");
             return "redirect:/user";
         } else {
             model.addAttribute("rooms", roomService.findAll());
@@ -122,4 +122,5 @@ public class UserController {
             return "update-view";
         }
     }
+
 }

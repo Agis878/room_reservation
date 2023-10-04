@@ -5,8 +5,55 @@ body {
     margin: 20px;
 }
 
-h1 {
+h2, p {
     color: #333;
+}
+
+/*ul, li {*/
+/*    list-style-type: none;*/
+/*    padding: 0;*/
+/*}*/
+
+/*li {*/
+/*    display: inline;*/
+/*    margin-right: 10px;*/
+/*}*/
+
+/*a {*/
+/*    text-decoration: none;*/
+/*    color: #3498db;*/
+/*}*/
+
+a:hover {
+    color: #2980b9;
+}
+
+.navbar {
+    background-color: #5e5e5e;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+}
+
+.left {
+    flex-grow: 1;
+}
+
+.right {
+    margin-left: auto;
+}
+
+.navbar a {
+    color: #f2f2f2;
+}
+
+.navbar h2 {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    margin: 0;
 }
 
 a, button {
@@ -18,7 +65,7 @@ a, button {
     color: #333;
     background-color: #66b2ff;
     border: none;
-    border-radius: 5px; /* Zaokrąglenie rogów */
+    border-radius: 5px;
     cursor: pointer;
 }
 
@@ -42,4 +89,51 @@ a:hover, button:hover {
     background-color: #f2f2f2;
 }
 
-/* Dodaj resztę stylów według potrzeb */
+.styled-table td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.styled-table tbody tr {
+    border-bottom: 1px solid #ddd; /* Linia oddzielająca wiersze */
+}
+
+/* Ostatni wiersz nie ma dolnej linii */
+.styled-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul li {
+    margin-bottom: 10px;
+}
+
+ul li a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+ul li a:hover {
+    text-decoration: underline;
+}
+
+.small-button {
+    padding: 5px 10px; /* Możesz dostosować wartości do własnych preferencji */
+    font-size: 12px; /* Możesz dostosować wartość do własnych preferencji */
+    text-decoration: none; /* Usunięcie domyślnego podkreślenia linku */
+    color: #333; /* Kolor tekstu linku */
+    border: none; /* Usunięcie domyślnego obramowania linku */
+    border-radius: 5px; /* Zaokrąglenie rogów */
+    cursor: pointer;
+    background-color: #66b2ff; /* Kolor tła linku */
+}
+
+.small-button:hover {
+    background-color: #3399ff; /* Kolor tła linku po najechaniu myszką */
+    color: #2980b9; /* Zmiana koloru tekstu po najechaniu myszką */
+}
