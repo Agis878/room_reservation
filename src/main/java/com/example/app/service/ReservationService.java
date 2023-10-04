@@ -18,6 +18,8 @@ public interface ReservationService {
 
 //    void updateReservation(Reservation reservation);
 
+//    boolean updateReservation(Reservation updatedReservation);
+
     void deleteReservation(Long id);
 
 

@@ -55,12 +55,12 @@ public class AdminController {
         model.addAttribute("userList", userService.findAll());
         if (userSelectionType.equals("all")) {
             model.addAttribute("reservations", reservationService.findAll());
+//            model.addAttribute("noReservationsMessage", reservationService.findAll().isEmpty() ? "No reservations available" : null);
         } else {
             User selectedUser = userService.findById(selectedUserId).orElse(null);
             List<Reservation> reservationsForCurrentUser = reservationService.findAllByUser(selectedUser);
             model.addAttribute("reservationsForCurrentUser", reservationsForCurrentUser);
-            // Dodaj prostą weryfikację na konsoli, aby sprawdzić zawartość atrybutu
-            System.out.println("Reservations for current user: " + reservationsForCurrentUser);
+//            model.addAttribute("noReservationsMessageCurrentUser", reservationsForCurrentUser.isEmpty() ? "No reservations for the current user" : null);
         }
         return "report-users";
     }

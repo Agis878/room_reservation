@@ -61,9 +61,33 @@ public class ReservationServiceImpl implements ReservationService {
         return reservationRepository.findById(id);
     }
 
-    public void updateReservation(Reservation reservation) {
-        reservationRepository.save(reservation);
-    }
+//    public void updateReservation(Reservation reservation) {
+//        reservationRepository.save(reservation);
+//    }
+//public boolean updateReservation(Reservation updatedReservation) {
+//    if (isValidUpdate(updatedReservation)) {
+//        Reservation existingReservation = reservationRepository.findById(updatedReservation.getId()).orElse(null);
+//        if (existingReservation != null) {
+//            existingReservation.setReservationStartDate(updatedReservation.getReservationStartDate());
+//            existingReservation.setReservationEndDate(updatedReservation.getReservationEndDate());
+//            existingReservation.setRoom(updatedReservation.getRoom());
+//
+//            if (isValidReservation(existingReservation)) {
+//                reservationRepository.save(existingReservation);
+//                return true;
+//            }
+//        }
+//    }
+//    return false;
+//}
+
+//    private boolean isValidUpdate(Reservation updatedReservation) {
+//        // Sprawdzenie, czy data rozpoczęcia rezerwacji jest przed datą zakończenia
+//        // oraz czy nie jest wcześniejsza niż dzisiejsza data
+//        LocalDate currentDate = LocalDate.now();
+//        return updatedReservation.getReservationStartDate().isBefore(updatedReservation.getReservationEndDate())
+//                && !updatedReservation.getReservationStartDate().isBefore(currentDate);
+//    }
 
     public void deleteReservation(Long id) {
         reservationRepository.deleteById(id);
