@@ -5,15 +5,16 @@ import com.example.app.model.User;
 import com.example.app.service.ReservationService;
 import com.example.app.service.RoomService;
 import com.example.app.service.UserService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.ManyToOne;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/admin")
@@ -35,8 +36,8 @@ public class AdminController {
 
         model.addAttribute("userList", userService.findAll());
         model.addAttribute("roomList", roomService.findAll());
-        model.addAttribute("reservationList",reservationService.findAll());
-       return "admin-view";
+        model.addAttribute("reservationList", reservationService.findAll());
+        return "admin-view";
     }
 
     @GetMapping("/report_1")
@@ -55,14 +56,23 @@ public class AdminController {
         model.addAttribute("userList", userService.findAll());
         if (userSelectionType.equals("all")) {
             model.addAttribute("reservations", reservationService.findAll());
-//            model.addAttribute("noReservationsMessage", reservationService.findAll().isEmpty() ? "No reservations available" : null);
+            model.addAttribute("noReservationsMessage", reservationService.findAll().isEmpty() ? "No reservations available" : null);
         } else {
             User selectedUser = userService.findById(selectedUserId).orElse(null);
             List<Reservation> reservationsForCurrentUser = reservationService.findAllByUser(selectedUser);
             model.addAttribute("reservationsForCurrentUser", reservationsForCurrentUser);
-//            model.addAttribute("noReservationsMessageCurrentUser", reservationsForCurrentUser.isEmpty() ? "No reservations for the current user" : null);
+            model.addAttribute("noReservationsMessageCurrentUser", reservationsForCurrentUser.isEmpty() ? "No reservations for the current user" : null);
         }
         return "report-users";
     }
 
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteReservation(@PathVariable Long id) {
+        reservationService.deleteReservation(id);
+        return ResponseEntity.ok().build();
+
+    }
 }
+
+
+

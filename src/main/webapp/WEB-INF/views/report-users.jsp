@@ -5,8 +5,43 @@
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/styles.css">
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".delete-button").click(function (event) {
+                event.preventDefault();
+                var confirmation = confirm("Are you sure you want to delete this reservation?");
+                if (!confirmation) {
+                    return;
+                }
+
+                var reservationId = $(this).data("reservation-id");
+                var deleteUrl = "/admin/delete/" + reservationId;
+
+                $.ajax({
+                    type: "DELETE",
+                    url: deleteUrl,
+                    success: function (data) {
+                        alert("Reservation deleted successfully");
+
+                        var deletedRow = $("tr[data-reservation-id='" + reservationId + "']");
+                        deletedRow.remove();
+                        window.location.reload();
+                    },
+                    error: function (error) {
+                        alert("Error deleting reservation");
+                    },
+                    complete: function () {
+
+                    }
+                });
+            });
+        });
+    </script>
+
     <title>report-users</title>
-</head>
+    </head>
 <body>
 
 <h2>Users reservations</h2>
@@ -34,6 +69,7 @@
             <th>Reservation date</th>
             <th>Room</th>
             <th>User</th>
+            <th>Action</th>
         </tr>
         </thead>
         <tbody>
@@ -46,6 +82,11 @@
                 <td>${reservation.reservationDate}</td>
                 <td>${reservation.room.name}</td>
                 <td>${reservation.user.username}</td>
+                <td>
+                    <sec:authorize access="isAuthenticated()">
+                        <button class="small-button delete-button" data-reservation-id="${reservation.id}">Delete</button>
+                    </sec:authorize>
+                </td>
             </tr>
         </c:forEach>
         </tbody>
@@ -63,6 +104,7 @@
             <th>Reservation date</th>
             <th>Room</th>
             <th>User</th>
+            <th>Action</th>
         </tr>
         </thead>
         <tbody>
@@ -75,6 +117,13 @@
                 <td>${reservation.reservationDate}</td>
                 <td>${reservation.room.name}</td>
                 <td>${reservation.user.username}</td>
+                <td>
+                <td>
+                    <sec:authorize access="isAuthenticated()">
+                        <button class="small-button delete-button" data-reservation-id="${reservation.id}">Delete</button>
+                    </sec:authorize>
+                </td>
+                </td>
             </tr>
         </c:forEach>
         </tbody>
