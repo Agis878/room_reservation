@@ -39,7 +39,6 @@ public class SecurityConfig {
                     }
                 })
 
-
                 .permitAll()
                 .and()
                 .logout()
@@ -49,29 +48,6 @@ public class SecurityConfig {
                 .build();
     }
 
-
-
-
-//    @Bean
-//    protected SecurityFilterChain configure(HttpSecurity http) throws Exception {
-//        return http.authorizeHttpRequests()
-//                .antMatchers("/", "/register", "/login").permitAll()
-//                .antMatchers("/admin", "admin/report_1", "admin/report_2").hasRole("ADMIN")
-//                .antMatchers("favicon.ico").permitAll()
-//                .anyRequest().authenticated()
-//                .and()
-//                .csrf().disable()
-//                .formLogin()
-//                .loginPage("/login")
-//                .defaultSuccessUrl("/user")
-//                .permitAll()
-//                .and()
-//                .logout()
-//                .logoutUrl("/logout")
-//                .logoutSuccessUrl("/login")
-//                .and()
-//                .build();
-//    }
 }
 
 
