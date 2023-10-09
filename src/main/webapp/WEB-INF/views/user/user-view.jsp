@@ -23,7 +23,9 @@
         <a href="/logout">Logout</a>
     </div>
 </div>
-<a href="<c:url value="/user/add"/>" >Add reservation</a>
+<div class="button-group">
+    <a href="<c:url value="/user/add"/>">Add reservation</a>
+</div>
 
 
 <h1>Reservation list</h1>

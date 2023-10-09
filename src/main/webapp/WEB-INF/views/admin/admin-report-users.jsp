@@ -59,7 +59,7 @@
 </c:choose>
 
 <c:if test="${not empty reservations}">
-    <table class="styled-table">>
+    <table class="styled-table">
         <thead>
         <tr>
             <th>ID</th>
@@ -94,7 +94,7 @@
 </c:if>
 
 <c:if test="${not empty reservationsForCurrentUser}">
-    <table>
+    <table class="styled-table">
         <thead>
         <tr>
             <th>ID</th>
@@ -118,11 +118,9 @@
                 <td>${reservation.room.name}</td>
                 <td>${reservation.user.username}</td>
                 <td>
-                <td>
                     <sec:authorize access="isAuthenticated()">
                         <button class="small-button delete-button" data-reservation-id="${reservation.id}">Delete</button>
                     </sec:authorize>
-                </td>
                 </td>
             </tr>
         </c:forEach>
