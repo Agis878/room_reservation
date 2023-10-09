@@ -12,9 +12,7 @@ import java.util.List;
 
 public interface ReservationRepository extends JpaRepository <Reservation, Long> {
 
-    @Query("SELECT r FROM Reservation r WHERE r.user = :user")
-    List<Reservation> findAllByUser(@Param("user") User user);
-
+    List<Reservation> findAllByUser(User user);
 
     @Query("SELECT r FROM Reservation r " +
             "WHERE r.room = :room " +
@@ -32,5 +30,5 @@ public interface ReservationRepository extends JpaRepository <Reservation, Long>
 
 }
 
-//    List<Reservation> findAllByUser(User user);
+
 

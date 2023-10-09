@@ -21,22 +21,31 @@ public class SecurityConfig {
     @Bean
     protected SecurityFilterChain configure(HttpSecurity http) throws Exception {
         return http.authorizeHttpRequests()
+                .antMatchers("/css/**").permitAll()
                 .antMatchers("/", "/register", "/login").permitAll()
-                .antMatchers("/admin", "admin/report_1", "admin/report_2").hasRole("ADMIN")
+                .antMatchers("/admin", "admin/**").hasRole("ADMIN")
                 .antMatchers("favicon.ico").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .csrf().disable()
                 .formLogin()
-
+//usunąć petle albo breakepo response
                 .successHandler((request, response, authentication) -> {
-                    for (GrantedAuthority auth : authentication.getAuthorities()) {
-                        if (auth.getAuthority().equals("ROLE_ADMIN")) {
-                            response.sendRedirect("/admin");
-                        } else if (auth.getAuthority().equals("ROLE_USER")) {
-                            response.sendRedirect("/user");
-                        }
+                    if (authentication.getAuthorities().stream()
+                            .anyMatch(auth -> auth.getAuthority().equals("ROLE_ADMIN"))) {
+                        response.sendRedirect("/admin");
+                    } else if (authentication.getAuthorities().stream()
+                            .anyMatch(auth -> auth.getAuthority().equals("ROLE_USER"))) {
+                        response.sendRedirect("/user");
                     }
+//                .successHandler((request, response, authentication) -> {
+//                    for (GrantedAuthority auth : authentication.getAuthorities()) {
+//                        if (auth.getAuthority().equals("ROLE_ADMIN")) {
+//                            response.sendRedirect("/admin");
+//                        } else if (auth.getAuthority().equals("ROLE_USER")) {
+//                            response.sendRedirect("/user");
+//                        }
+//                    }
                 })
 
                 .permitAll()

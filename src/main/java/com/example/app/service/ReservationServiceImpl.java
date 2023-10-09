@@ -39,6 +39,24 @@ public class ReservationServiceImpl implements ReservationService {
 
     public boolean addReservation(Reservation reservation) {
         if (isValidReservation(reservation)) {
+            reservation.prePersist();
+
+            if (reservation.getId() != null) {
+                // If reservation has an ID, it means it already exists, so update it
+                Optional<Reservation> existingReservation = reservationRepository.findById(reservation.getId());
+                if (existingReservation.isPresent()) {
+                    Reservation oldReservation = existingReservation.get();
+                    oldReservation.setReservationStartDate(reservation.getReservationStartDate());
+                    oldReservation.setReservationEndDate(reservation.getReservationEndDate());
+                    oldReservation.setReservationDate(reservation.getReservationDate());
+                    oldReservation.setRoom(reservation.getRoom());
+
+                    reservationRepository.save(oldReservation);
+                    return true;
+                }
+            }
+
+            // If the reservation does not have an ID or does not exist, save it as a new reservation
             reservationRepository.save(reservation);
             return true;
         } else {
@@ -46,12 +64,12 @@ public class ReservationServiceImpl implements ReservationService {
         }
     }
 
-    private boolean isValidReservation(Reservation reservation) {
+    boolean isValidReservation(Reservation reservation) {
         LocalDate currentDate = LocalDate.now();
         return reservation.getReservationStartDate().isBefore(reservation.getReservationEndDate()) && !reservation.getReservationStartDate().isBefore(currentDate) && isRoomAvailable(reservation);
     }
 
-    private boolean isRoomAvailable(Reservation reservation) {
+    boolean isRoomAvailable(Reservation reservation) {
         List<Reservation> overlappingReservations = reservationRepository.findOverlappingReservations(reservation.getRoom(), reservation.getReservationStartDate(), reservation.getReservationEndDate(), reservation.getId());
         return overlappingReservations.isEmpty();
     }
@@ -61,33 +79,6 @@ public class ReservationServiceImpl implements ReservationService {
         return reservationRepository.findById(id);
     }
 
-//    public void updateReservation(Reservation reservation) {
-//        reservationRepository.save(reservation);
-//    }
-//public boolean updateReservation(Reservation updatedReservation) {
-//    if (isValidUpdate(updatedReservation)) {
-//        Reservation existingReservation = reservationRepository.findById(updatedReservation.getId()).orElse(null);
-//        if (existingReservation != null) {
-//            existingReservation.setReservationStartDate(updatedReservation.getReservationStartDate());
-//            existingReservation.setReservationEndDate(updatedReservation.getReservationEndDate());
-//            existingReservation.setRoom(updatedReservation.getRoom());
-//
-//            if (isValidReservation(existingReservation)) {
-//                reservationRepository.save(existingReservation);
-//                return true;
-//            }
-//        }
-//    }
-//    return false;
-//}
-
-//    private boolean isValidUpdate(Reservation updatedReservation) {
-//        // Sprawdzenie, czy data rozpoczęcia rezerwacji jest przed datą zakończenia
-//        // oraz czy nie jest wcześniejsza niż dzisiejsza data
-//        LocalDate currentDate = LocalDate.now();
-//        return updatedReservation.getReservationStartDate().isBefore(updatedReservation.getReservationEndDate())
-//                && !updatedReservation.getReservationStartDate().isBefore(currentDate);
-//    }
 
     public void deleteReservation(Long id) {
         reservationRepository.deleteById(id);
@@ -97,8 +88,8 @@ public class ReservationServiceImpl implements ReservationService {
         return reservationRepository.findAllByUser(user);
     }
 
-
-    @Scheduled(cron = "0 0 * * * *") // Aktualizacja co godzinę
+    // Updated every hour
+    @Scheduled(cron = "0 0 * * * *")
     public void updateReservationStatus() {
         List<Reservation> reservations = reservationRepository.findAll();
         LocalDate currentDate = LocalDate.now();
