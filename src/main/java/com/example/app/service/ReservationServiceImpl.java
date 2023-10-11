@@ -23,7 +23,7 @@ public class ReservationServiceImpl implements ReservationService {
         return reservationRepository.findAll();
     }
 
-
+    // Retrieve reservations based on status (active, finished, or all)
     public List<Reservation> findAllByReservationStatus(String reservationStatus) {
 
         if (reservationStatus.equals("active")) {
@@ -37,6 +37,7 @@ public class ReservationServiceImpl implements ReservationService {
         }
     }
 
+    // Add or update a reservation
     public boolean addReservation(Reservation reservation) {
         if (isValidReservation(reservation)) {
             reservation.prePersist();
@@ -64,11 +65,13 @@ public class ReservationServiceImpl implements ReservationService {
         }
     }
 
+    // Check if a reservation is valid
     boolean isValidReservation(Reservation reservation) {
         LocalDate currentDate = LocalDate.now();
         return reservation.getReservationStartDate().isBefore(reservation.getReservationEndDate()) && !reservation.getReservationStartDate().isBefore(currentDate) && isRoomAvailable(reservation);
     }
 
+    // Check if a room is available for a given reservation
     boolean isRoomAvailable(Reservation reservation) {
         List<Reservation> overlappingReservations = reservationRepository.findOverlappingReservations(reservation.getRoom(), reservation.getReservationStartDate(), reservation.getReservationEndDate(), reservation.getId());
         return overlappingReservations.isEmpty();
@@ -88,7 +91,7 @@ public class ReservationServiceImpl implements ReservationService {
         return reservationRepository.findAllByUser(user);
     }
 
-    // Updated every hour
+    // Scheduled task to update reservation status every hour
     @Scheduled(cron = "0 0 * * * *")
     public void updateReservationStatus() {
         List<Reservation> reservations = reservationRepository.findAll();

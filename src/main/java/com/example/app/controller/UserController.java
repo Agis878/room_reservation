@@ -36,22 +36,24 @@ public class UserController {
 
     @GetMapping
     public String getUserView(@AuthenticationPrincipal UserDetails authenticatedUser, Model model) {
+
         User loggedUser = userService.getUserWithReservationsByUserName(authenticatedUser.getUsername());
-        //        User loggedUser = userService.getByUsername(authenticatedUser.getUsername());
+
         model.addAttribute("loggedUser", loggedUser);
         model.addAttribute("reservationList", loggedUser.getReservations());
-        return "user-view";
+        return "user/user-view";
     }
 
 
     @GetMapping("add")
     public String addReservationForm(@AuthenticationPrincipal UserDetails authenticatedUser, Model model) {
+
         User loggedUser = userService.getUserWithReservationsByUserName(authenticatedUser.getUsername());
+
         model.addAttribute("loggedUser", loggedUser);
         model.addAttribute("reservation", new Reservation());
         model.addAttribute("rooms", roomService.findAll());
-        return "/reservation-form";
-
+        return "reservation/reservation-add";
     }
 
 
@@ -62,16 +64,16 @@ public class UserController {
             model.addAttribute("errors", bindingResult.getFieldErrors().stream()
                     .collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage)));
             model.addAttribute("rooms", roomService.findAll());
-            return "reservation-form";
+            return "reservation/reservation-add";
         }
-
+        // Attempt to add the reservation, handle conflicts
         boolean reservationAdded = reservationService.addReservation(reservation);
         if (reservationAdded) {
             return "redirect:/user";
         } else {
             model.addAttribute("rooms", roomService.findAll());
             model.addAttribute("error", "The reservation cannot be added due to a date conflict.");
-            return "reservation-form";
+            return "reservation/reservation-add";
         }
     }
 
@@ -80,7 +82,7 @@ public class UserController {
         Optional<Reservation> reservationToDelete = reservationService.findById(id);
         if (reservationToDelete.isPresent()) {
             model.addAttribute("reservation", reservationToDelete.get());
-            return "delete-view";
+            return "reservation/reservation-delete";
         } else {
             throw new EntityNotFoundException();
         }
@@ -100,7 +102,7 @@ public class UserController {
         model.addAttribute("loggedUser", loggedUser);
         model.addAttribute("reservation", reservationService.findById(id));
         model.addAttribute("rooms", roomService.findAll());
-        return "/update-view";
+        return "reservation/reservation-update";
     }
 
     @PostMapping("/update")
@@ -110,16 +112,16 @@ public class UserController {
             model.addAttribute("errors", bindingResult.getFieldErrors().stream()
                     .collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage)));
             model.addAttribute("rooms", roomService.findAll());
-            return "update-view";
+            return "reservation/reservation-update";
         }
-
+        // Attempt to update the reservation, handle conflicts
         boolean reservationAdded = reservationService.addReservation(reservation);
         if (reservationAdded) {
             return "redirect:/user";
         } else {
             model.addAttribute("rooms", roomService.findAll());
             model.addAttribute("error", "The reservation cannot be added due to a date conflict.");
-            return "update-view";
+            return "reservation/reservation-update";
         }
     }
 
