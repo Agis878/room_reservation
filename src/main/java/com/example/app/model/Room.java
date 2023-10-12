@@ -1,13 +1,15 @@
 package com.example.app.model;
 
-import lombok.Data;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 @Data
 @Entity
 @Table(name = "rooms")
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

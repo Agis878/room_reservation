@@ -1,7 +1,6 @@
 package com.example.app.model;
 
-import lombok.Data;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -11,6 +10,9 @@ import java.util.List;
 @ToString
 @Entity
 @Table(name = "users")
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,6 +43,7 @@ public class User {
     @ToString.Exclude
     @OneToMany(mappedBy = "user")
     private List<Reservation> reservations;
+
 
 }
 

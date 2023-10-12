@@ -1,7 +1,11 @@
 package com.example.app.model;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.validation.constraints.FutureOrPresent;
 
 
@@ -13,6 +17,9 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @Table(name = "reservations")
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
