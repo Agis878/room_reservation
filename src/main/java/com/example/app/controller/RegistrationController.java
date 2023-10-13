@@ -30,16 +30,18 @@ public class RegistrationController {
 
     @GetMapping
     public String registrationUserForm(Model model) {
-
         model.addAttribute("user", new User());
         return "registration";
     }
 
     @PostMapping
     public String processRegistrationForm(@Valid User user, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
+
+        if (bindingResult.hasErrors() || !userService.isUsernameUnique(user.getUsername())) {
+            bindingResult.rejectValue("username", "error.username.exists", "Username already exists");
             return "registration";
         }
+
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole("ROLE_USER");

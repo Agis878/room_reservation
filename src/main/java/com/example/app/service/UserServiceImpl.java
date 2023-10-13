@@ -30,9 +30,7 @@ public class UserServiceImpl implements UserService{
     public void deleteUser(User user) {
         userRepository.delete(user);
     }
-    //    public Optional<User> findByLoginAndPassword(String login, String password) {
-//       return userRepository.findUserByLoginAndPassword(login,password);
-//    }
+
     public User save(User user) {
         return userRepository.save(user);
     }
@@ -43,6 +41,13 @@ public class UserServiceImpl implements UserService{
 
     public User getUserWithReservationsByUserName(String name) {
         return userRepository.getWithReservationsByUsername(name);
+    }
+
+    @Override
+    public boolean isUsernameUnique(String username) {
+        // Check if the username is unique by querying the database
+        User existingUser = userRepository.getByUsername(username);
+        return existingUser == null;
     }
 
 }
