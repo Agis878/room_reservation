@@ -1,4 +1,4 @@
-package com.example.app.room_reservation.repository;
+package com.example.app.repositories;
 
 import com.example.app.model.Reservation;
 import com.example.app.model.Room;
