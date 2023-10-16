@@ -16,9 +16,6 @@ public interface ReservationService {
 
     Optional<Reservation> findById(Long id);
 
-//    void updateReservation(Reservation reservation);
-
-//    boolean updateReservation(Reservation updatedReservation);
 
     void deleteReservation(Long id);
 

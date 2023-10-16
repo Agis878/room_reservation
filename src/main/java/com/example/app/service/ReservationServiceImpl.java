@@ -77,11 +77,9 @@ public class ReservationServiceImpl implements ReservationService {
         return overlappingReservations.isEmpty();
     }
 
-
     public Optional<Reservation> findById(Long id) {
         return reservationRepository.findById(id);
     }
-
 
     public void deleteReservation(Long id) {
         reservationRepository.deleteById(id);
