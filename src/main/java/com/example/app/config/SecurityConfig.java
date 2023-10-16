@@ -3,7 +3,6 @@ package com.example.app.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -29,7 +28,6 @@ public class SecurityConfig {
                 .and()
                 .csrf().disable()
                 .formLogin()
-//usunąć petle albo breakepo response
                 .successHandler((request, response, authentication) -> {
                     if (authentication.getAuthorities().stream()
                             .anyMatch(auth -> auth.getAuthority().equals("ROLE_ADMIN"))) {
@@ -38,16 +36,7 @@ public class SecurityConfig {
                             .anyMatch(auth -> auth.getAuthority().equals("ROLE_USER"))) {
                         response.sendRedirect("/user");
                     }
-//                .successHandler((request, response, authentication) -> {
-//                    for (GrantedAuthority auth : authentication.getAuthorities()) {
-//                        if (auth.getAuthority().equals("ROLE_ADMIN")) {
-//                            response.sendRedirect("/admin");
-//                        } else if (auth.getAuthority().equals("ROLE_USER")) {
-//                            response.sendRedirect("/user");
-//                        }
-//                    }
                 })
-
                 .permitAll()
                 .and()
                 .logout()

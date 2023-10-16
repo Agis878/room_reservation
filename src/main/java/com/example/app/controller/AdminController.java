@@ -9,12 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.persistence.EntityNotFoundException;
-import javax.persistence.ManyToOne;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/admin")
@@ -33,20 +29,17 @@ public class AdminController {
 
     @GetMapping
     public String getAdminView(Model model) {
-
         model.addAttribute("userList", userService.findAll());
         model.addAttribute("roomList", roomService.findAll());
         model.addAttribute("reservationList", reservationService.findAll());
-        return "admin-view";
+        return "admin/admin-view";
     }
 
     @GetMapping("/report_1")
     public String getReportByReservationStatus(Model model, @RequestParam(defaultValue = "all") String reservationType) {
         List<Reservation> reservationsByStatus = reservationService.findAllByReservationStatus(reservationType);
-
         model.addAttribute("reservations", reservationsByStatus);
-
-        return "report-reservation-status";
+        return "admin/admin-report-reservation-status";
     }
 
     @GetMapping("/report_2")
@@ -63,14 +56,13 @@ public class AdminController {
             model.addAttribute("reservationsForCurrentUser", reservationsForCurrentUser);
             model.addAttribute("noReservationsMessageCurrentUser", reservationsForCurrentUser.isEmpty() ? "No reservations for the current user" : null);
         }
-        return "report-users";
+        return "admin/admin-report-users";
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteReservation(@PathVariable Long id) {
         reservationService.deleteReservation(id);
         return ResponseEntity.ok().build();
-
     }
 }
 
