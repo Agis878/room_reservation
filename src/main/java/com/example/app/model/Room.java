@@ -29,7 +29,7 @@ public class Room {
     /**
      * The quantity of seats in the room.
      */
-    @Column(name = "saets_qty")
+    @Column(name = "seats_qty")
     private int seatsQty;
 
     /**

@@ -1,6 +1,6 @@
 # Room Reservation Project
 The Room Reservation Project is a system that allows you to reserve available rooms for a specific date. Users,
-After logging in, they can make reservations, edit their reservations or delete them.
+after logging in, they can make reservations, edit their reservations or delete them.
 The system administrator has full access to the reservation list and the ability to generate reports.
 
 ## Technologies Used
@@ -72,17 +72,18 @@ Projekt Rezerwacji Sal został zrealizowany przy użyciu następujących technol
 ## Instrukcja Uruchomienia
 
 1. **Instalacja zależności**
-    - Upewnij się, że posiadasz zainstalowaną odpowiednią wersję języka programowania i frameworka użytego w projekcie.
-    - Zainstaluj wymagane biblioteki i narzędzia, korzystając z pliku `requirements.txt` (jeśli projekt korzysta z Pythona).
-    - Zainstaluj zależności frameworka i inne narzędzia według dokumentacji.
+   - Upewnij się, że posiadasz zainstalowaną odpowiednią wersję języka oprogramowania i frameworka użytego w projekcie.
+   - Zainstaluj wymagane biblioteki i narzędzia.
+   - Zainstaluj zależności frameworka i inne narzędzia.
 
 2. **Konfiguracja Bazy Danych**
     - Skonfiguruj połączenie z bazą danych zgodnie z ustawieniami projektu.
 
 3. **Uruchomienie Aplikacji**
-    - Uruchom aplikację, korzystając z odpowiednich komend lub skryptów.
+   - Uruchom aplikację przy uzyciu klasy RoomReservationApplication.Znajdź ikonę "Run" lub kliknij prawym przyciskiem
+     myszy na pliku i wybierz opcję "Run RoomReservationApplication.main()".
 
 4. **Uzyskanie Dostępu**
     - Zarejestruj się lub zaloguj jako administrator lub użytkownik, aby uzyskać dostęp do pełnych funkcji.
 
-
+![rooms_booking.gif](..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2FDownloads%2Frooms_booking.gif)

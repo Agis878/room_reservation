@@ -20,11 +20,5 @@
     </div>
     <input type="hidden" name="id" value="${reservation.id}"/>
 </form>
-<%--<form method="post">--%>
-<%--  <input type="hidden" name="id" value="${reservation.id}"/>--%>
-<%--    <div class="button-group">--%>
-<%--        <button type="submit">Yes</button>|<a href="/user">No</a>--%>
-<%--    </div>--%>
-<%--</form>--%>
 </body>
 </html>

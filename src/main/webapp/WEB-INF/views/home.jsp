@@ -7,7 +7,6 @@
     <title>Home</title>
 </head>
 <body>
-
 <h2>Welcome to the booking page</h2>
 
 <p>To use the booking feature, please log in or register:</p>
@@ -16,12 +15,5 @@
 
         <a href="/register">Register</a></div>
 </div>
-
-<%--<ul>--%>
-<%--    <li><a href="/login">Login</a></li>--%>
-<%--    <li><a href="/register">Register</a></li>--%>
-<%--</ul>--%>
-
 </body>
-
 </html>

@@ -12,9 +12,13 @@
     <title>report2</title>
 
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/styles.css">
+
+    <!-- Include jQuery library -->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <!-- JavaScript for handling deletion confirmation and AJAX call -->
     <script type="text/javascript">
         $(document).ready(function () {
+            // Function to handle delete button click
             $(".delete-button").click(function (event) {
                 event.preventDefault();
                 var confirmation = confirm("Are you sure you want to delete this reservation?");
@@ -24,7 +28,7 @@
 
                 var reservationId = $(this).data("reservation-id");
                 var deleteUrl = "/admin/delete/" + reservationId;
-
+                // AJAX call to delete the reservation
                 $.ajax({
                     type: "DELETE",
                     url: deleteUrl,
@@ -49,7 +53,7 @@
 <body>
 
 <h2>Reservation list</h2>
-
+<!-- Table to display reservation information -->
 <table class="styled-table">
     <thead>
     <tr>
@@ -74,6 +78,7 @@
             <td>${reservation.room.name}</td>
             <td>${reservation.user.username}</td>
             <td>
+                <!-- Display delete button for authenticated users -->
                 <sec:authorize access="isAuthenticated()">
                     <button class="small-button delete-button" data-reservation-id="${reservation.id}">Delete</button>
                 </sec:authorize>
@@ -82,6 +87,7 @@
     </c:forEach>
     </tbody>
 </table>
+
 <a href="/admin">Go back</a>
 
 </body>
