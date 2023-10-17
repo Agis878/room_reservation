@@ -86,4 +86,4 @@ Projekt Rezerwacji Sal został zrealizowany przy użyciu następujących technol
 4. **Uzyskanie Dostępu**
     - Zarejestruj się lub zaloguj jako administrator lub użytkownik, aby uzyskać dostęp do pełnych funkcji.
 
-![rooms_booking.gif](..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2FDownloads%2Frooms_booking.gif)
+![rooms_reservation.gif](..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2FDownloads%2Frooms_reservation.gif)
