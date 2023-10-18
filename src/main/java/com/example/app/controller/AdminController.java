@@ -39,6 +39,7 @@ public class AdminController {
     public String getReportByReservationStatus(Model model, @RequestParam(defaultValue = "all") String reservationType) {
         List<Reservation> reservationsByStatus = reservationService.findAllByReservationStatus(reservationType);
         model.addAttribute("reservations", reservationsByStatus);
+        model.addAttribute("noReservationsMessage", reservationService.findAllByReservationStatus(reservationType).isEmpty() ? "No reservations available" : null);
         return "admin/admin-report-reservation-status";
     }
 
