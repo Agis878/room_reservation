@@ -1,9 +1,11 @@
 
-![room-reservation](https://github.com/Agis878/room_reservation/assets/126699089/ebf38754-3adc-429f-b405-00e0ddb415f3)
+![rooms_reservation(1)](https://github.com/Agis878/room_reservation/assets/126699089/49b6604c-becf-43be-abef-ef0903712c36)
+
 
 # Room Reservation Project
 The Room Reservation Project is a system that allows you to reserve available rooms for a specific date. Users,
 After logging in, they can make reservations, edit their reservations or delete them.
+after logging in, they can make reservations, edit their reservations or delete them.
 The system administrator has full access to the reservation list and the ability to generate reports.
 
 ## Technologies Used
@@ -55,18 +57,18 @@ Projekt Rezerwacji Sal został zrealizowany przy użyciu następujących technol
 
 3. **Dodawanie Rezerwacji**
     - Sprawdzanie dostępności sali w wybranym terminie poprzez listę rezerwacji przypisanych do danej sali.
-    - Użytkownicy mogą dodawać rezerwacje, tworząc nowe obiekty klasy Reservation z odpowiednimi danymi i przypisując je do odpowiednich sal i użytkowników.
+    - Użytkownicy mogą dodawać rezerwacje, tworząc nowe obiekty klasy Reservation z odpowiednimi danymi i             przypisując je do odpowiednich sal i użytkowników.
     
 
 4. **Edycja i Anulowanie Rezerwacji**
-    - System umożliwia edycję parametrów rezerwacji, takich jak godziny i sala, poprzez odpowiednie formularze lub funkcje edycji.
+    - System umożliwia edycję parametrów rezerwacji, takich jak godziny i sala, poprzez odpowiednie formularze        lub funkcje edycji.
 
 5. **Panel Administracyjny**
     - Administrator systemu ma pełny dostęp do listy rezerwacji oraz możliwość generowania raportów.
 
 6. **Walidacja i Weryfikacja**
     - System przeprowadza walidację wprowadzanych danych, takich jak daty i godziny, aby upewnić się, że są one poprawne.
-    - Walidacja dostępności sali przed potwierdzeniem rezerwacji sprawdza, czy sala jest dostępna w wybranym terminie, zanim zostanie utworzona nowa rezerwacja.
+    - Walidacja dostępności sali przed potwierdzeniem rezerwacji sprawdza, czy sala jest dostępna w wybranym          terminie, zanim zostanie utworzona nowa rezerwacja.
 
 7. **Uwierzytelnianie i Autoryzacja**
     - Implementacja mechanizmu uwierzytelniania i rejestracji użytkowników przed rezerwacją sali.
@@ -76,17 +78,21 @@ Projekt Rezerwacji Sal został zrealizowany przy użyciu następujących technol
 
 1. **Instalacja zależności**
     - Upewnij się, że posiadasz zainstalowaną odpowiednią wersję języka programowania i frameworka użytego w projekcie.
+   - Upewnij się, że posiadasz zainstalowaną odpowiednią wersję języka oprogramowania i frameworka użytego w projekcie.
     - Zainstaluj wymagane biblioteki i narzędzia, korzystając z pliku `requirements.txt` (jeśli projekt korzysta z Pythona).
-    - Zainstaluj zależności frameworka i inne narzędzia według dokumentacji.
+   - Zainstaluj wymagane biblioteki i narzędzia.
+   - Zainstaluj zależności frameworka i inne narzędzia według dokumentacji.
+   - Zainstaluj zależności frameworka i inne narzędzia.
 
 2. **Konfiguracja Bazy Danych**
     - Skonfiguruj połączenie z bazą danych zgodnie z ustawieniami projektu.
 
 
 3. **Uruchomienie Aplikacji**
-    - Uruchom aplikację, korzystając z odpowiednich komend lub skryptów.
+   - Uruchom aplikację, korzystając z odpowiednich komend lub skryptów.
+   - Uruchom aplikację przy uzyciu klasy RoomReservationApplication.Znajdź ikonę "Run" lub kliknij prawym            przyciskiem myszy na pliku i wybierz opcję "Run RoomReservationApplication.main()".
+   - Możesz skorzystać z gotowej bazy insertów do bazy danych znajdującej się w pliku import.sql
 
 4. **Uzyskanie Dostępu**
     - Zarejestruj się lub zaloguj jako administrator lub użytkownik, aby uzyskać dostęp do pełnych funkcji.
-
 
