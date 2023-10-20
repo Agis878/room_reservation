@@ -39,10 +39,7 @@
                 <div class="form-group">
                     <label for="password">Password</label>
                     <input type="password" required name="password" id="password" class="form-control" placeholder="Password"/>
-
                 </div>
-                <button class="btn btn-primary" type="submit">Login</button>
-                <button class="btn btn-secondary" type="reset">Clean</button>
             </form>
         </div>
         <div class="col-5"></div>

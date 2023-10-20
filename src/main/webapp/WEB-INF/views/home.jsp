@@ -11,9 +11,10 @@
 
 <p>To use the booking feature, please log in or register:</p>
 <div class="button-group">
-    <div><a href="/login">Login</a> |
-
-        <a href="/register">Register</a></div>
+    <div>
+        <a href="/login">Login</a> |
+        <a href="/register">Register</a>
+    </div>
 </div>
 </body>
 </html>

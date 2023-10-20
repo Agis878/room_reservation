@@ -46,7 +46,6 @@ public class UserServiceImpl implements UserService {
      * @param username The username to be checked.
      * @return True if the username is unique; otherwise, false.
      */
-    @Override
     public boolean isUsernameUnique(String username) {
         User existingUser = userRepository.getByUsername(username);
         return existingUser == null;

@@ -37,8 +37,11 @@ public class RegistrationController {
     @PostMapping
     public String processRegistrationForm(@Valid User user, BindingResult bindingResult) {
 
-        if (bindingResult.hasErrors() || !userService.isUsernameUnique(user.getUsername())) {
+        if (!userService.isUsernameUnique(user.getUsername())) {
             bindingResult.rejectValue("username", "error.username.exists", "Username already exists");
+            return "registration";
+        }
+        if (bindingResult.hasErrors()) {
             return "registration";
         }
 
