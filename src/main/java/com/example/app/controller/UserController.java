@@ -67,7 +67,9 @@ public class UserController {
             model.addAttribute("rooms", roomService.findAll());
             return "reservation/reservation-add";
         }
-        // Attempt to add the reservation, handle conflicts
+        /**
+         * Attempt to add the reservation, handle conflicts
+         */
         boolean reservationAdded = reservationService.addReservation(reservation);
         if (reservationAdded) {
             return "redirect:/user";
