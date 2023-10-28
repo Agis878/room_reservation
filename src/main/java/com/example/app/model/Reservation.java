@@ -1,18 +1,16 @@
 package com.example.app.model;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.Optional;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "reservations")
 @NoArgsConstructor
@@ -74,7 +72,7 @@ public class Reservation {
      */
     @PrePersist
     public void prePersist() {
-        reservationDate = LocalDate.from(LocalDateTime.now());
+        reservationDate = LocalDate.now();
         if (reservationEndDate.isAfter(LocalDate.now())) {
             reservationStatus = "active";
         } else {
@@ -87,12 +85,8 @@ public class Reservation {
      */
     @Override
     public String toString() {
-        return "Reservation{" +
-                "id=" + id +
-                ", reservationStartDate=" + reservationStartDate +
-                ", reservationEndDate=" + reservationEndDate +
-                ", reservationStatus='" + reservationStatus + '\'' +
-                ", room=" + room.getName() +
-                '}';
+
+        String roomName = Optional.ofNullable(room).map(Room::getName).orElse("null");
+        return "Reservation{" + "id=" + id + ", reservationStartDate=" + reservationStartDate + ", reservationEndDate=" + reservationEndDate + ", reservationStatus='" + reservationStatus + '\'' + ", room=" + roomName + '}';
     }
 }

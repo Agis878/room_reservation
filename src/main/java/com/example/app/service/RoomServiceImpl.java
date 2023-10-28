@@ -5,6 +5,7 @@ import com.example.app.repositories.RoomRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
 public class RoomServiceImpl implements RoomService {
 
@@ -17,6 +18,5 @@ public class RoomServiceImpl implements RoomService {
     public List<Room> findAll() {
         return roomRepository.findAll();
     }
-
 
 }

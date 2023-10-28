@@ -4,10 +4,6 @@ import com.example.app.model.Reservation;
 import com.example.app.model.Room;
 import com.example.app.model.User;
 import com.example.app.repositories.ReservationRepository;
-import com.example.app.repositories.RoomRepository;
-import com.example.app.repositories.UserRepository;
-import com.example.app.repositories.UserRepositoryTest;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -17,6 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,20 +33,8 @@ class ReservationServiceImplTest {
     @Test
     void testFindAll() {
         Room room = Room.builder().id(1L).seatsQty(43).name("Room1").build();
-        Reservation reservation1 = Reservation.builder()
-                .id(1L).reservationDate(LocalDate.now())
-                .reservationStartDate(LocalDate.now().plusDays(1))
-                .reservationEndDate(LocalDate.now().plusDays(2))
-                .reservationStatus("active")
-                .room(room)
-                .build();
-        Reservation reservation2 = Reservation.builder()
-                .id(2L).reservationDate(LocalDate.now())
-                .reservationStartDate(LocalDate.now().plusDays(3))
-                .reservationEndDate(LocalDate.now().plusDays(4))
-                .reservationStatus("active")
-                .room(room)
-                .build();
+        Reservation reservation1 = Reservation.builder().id(1L).reservationDate(LocalDate.now()).reservationStartDate(LocalDate.now().plusDays(1)).reservationEndDate(LocalDate.now().plusDays(2)).reservationStatus("active").room(room).build();
+        Reservation reservation2 = Reservation.builder().id(2L).reservationDate(LocalDate.now()).reservationStartDate(LocalDate.now().plusDays(3)).reservationEndDate(LocalDate.now().plusDays(4)).reservationStatus("active").room(room).build();
 
         List<Reservation> reservations = Arrays.asList(reservation1, reservation2);
 
@@ -65,31 +50,13 @@ class ReservationServiceImplTest {
     @Test
     void testFindAllByReservationStatus() {
         Room room = Room.builder().id(1L).seatsQty(43).name("Room1").build();
-        Reservation reservation1 = Reservation.builder()
-                .id(1L).reservationDate(LocalDate.now())
-                .reservationStartDate(LocalDate.now().plusDays(1))
-                .reservationEndDate(LocalDate.now().plusDays(2))
-                .reservationStatus("active")
-                .room(room)
-                .build();
-        Reservation reservation2 = Reservation.builder()
-                .id(2L).reservationDate(LocalDate.now())
-                .reservationStartDate(LocalDate.now().plusDays(3))
-                .reservationEndDate(LocalDate.now().plusDays(4))
-                .reservationStatus("active")
-                .room(room)
-                .build();
+        Reservation reservation1 = Reservation.builder().id(1L).reservationDate(LocalDate.now()).reservationStartDate(LocalDate.now().plusDays(1)).reservationEndDate(LocalDate.now().plusDays(2)).reservationStatus("active").room(room).build();
+        Reservation reservation2 = Reservation.builder().id(2L).reservationDate(LocalDate.now()).reservationStartDate(LocalDate.now().plusDays(3)).reservationEndDate(LocalDate.now().plusDays(4)).reservationStatus("active").room(room).build();
 
-        Reservation reservation3 = Reservation.builder()
-                .id(2L).reservationDate(LocalDate.now())
-                .reservationStartDate(LocalDate.now().minusDays(3))
-                .reservationEndDate(LocalDate.now().minusDays(2))
-                .reservationStatus("finished")
-                .room(room)
-                .build();
+        Reservation reservation3 = Reservation.builder().id(2L).reservationDate(LocalDate.now()).reservationStartDate(LocalDate.now().minusDays(3)).reservationEndDate(LocalDate.now().minusDays(2)).reservationStatus("finished").room(room).build();
 
         List<Reservation> activeReservations = Arrays.asList(reservation1, reservation2);
-        List<Reservation> finishedReservations = Arrays.asList(reservation3);
+        List<Reservation> finishedReservations = Collections.singletonList(reservation3);
 
         when(mockReservationRepository.findAllByReservationStatus("active")).thenReturn(activeReservations);
         when(mockReservationRepository.findAllByReservationStatus("finished")).thenReturn(finishedReservations);
@@ -110,13 +77,7 @@ class ReservationServiceImplTest {
     void testAddReservation() {
         Room room = Room.builder().id(1L).seatsQty(43).name("Room1").build();
 
-        Reservation reservation = Reservation.builder()
-                .id(1L).reservationDate(LocalDate.now())
-                .reservationStartDate(LocalDate.now().plusDays(1))
-                .reservationEndDate(LocalDate.now().plusDays(2))
-                .reservationStatus("active")
-                .room(room)
-                .build();
+        Reservation reservation = Reservation.builder().id(1L).reservationDate(LocalDate.now()).reservationStartDate(LocalDate.now().plusDays(1)).reservationEndDate(LocalDate.now().plusDays(2)).reservationStatus("active").room(room).build();
 
         boolean result = reservationService.addReservation(reservation);
 
@@ -133,22 +94,10 @@ class ReservationServiceImplTest {
         LocalDate pastDate = currentDate.minusDays(7);
 
 
-        Reservation validReservation = Reservation.builder()
-                .id(1L).reservationDate(currentDate)
-                .reservationStartDate(futureDate)
-                .reservationEndDate(futureDate.plusDays(2))
-                .build();
+        Reservation validReservation = Reservation.builder().id(1L).reservationDate(currentDate).reservationStartDate(futureDate).reservationEndDate(futureDate.plusDays(2)).build();
 
-        Reservation invalidStartDate = Reservation.builder()
-                .id(2L).reservationDate(currentDate)
-                .reservationStartDate(pastDate)
-                .reservationEndDate(futureDate)
-                .build();
-        Reservation invalidEndDate = Reservation.builder()
-                .id(2L).reservationDate(currentDate)
-                .reservationStartDate(futureDate)
-                .reservationEndDate(currentDate)
-                .build();
+        Reservation invalidStartDate = Reservation.builder().id(2L).reservationDate(currentDate).reservationStartDate(pastDate).reservationEndDate(futureDate).build();
+        Reservation invalidEndDate = Reservation.builder().id(2L).reservationDate(currentDate).reservationStartDate(futureDate).reservationEndDate(currentDate).build();
 
         assertTrue(reservationService.isValidReservation(validReservation));
         assertFalse(reservationService.isValidReservation(invalidStartDate));
@@ -158,36 +107,17 @@ class ReservationServiceImplTest {
     @Test
     void testIsRoomAvailable() {
         Room room = Room.builder().id(1L).seatsQty(43).name("Room1").build();
-        Reservation reservation1 = Reservation.builder()
-                .id(1L).reservationDate(LocalDate.now())
-                .reservationStartDate(LocalDate.now().plusDays(1))
-                .reservationEndDate(LocalDate.now().plusDays(3))
-                .reservationStatus("active")
-                .room(room)
-                .build();
-        Reservation reservation2 = Reservation.builder()
-                .id(2L).reservationDate(LocalDate.now())
-                .reservationStartDate(LocalDate.now().plusDays(2))
-                .reservationEndDate(LocalDate.now().plusDays(4))
-                .reservationStatus("active")
-                .room(room)
-                .build();
+        Reservation reservation1 = Reservation.builder().id(1L).reservationDate(LocalDate.now()).reservationStartDate(LocalDate.now().plusDays(1)).reservationEndDate(LocalDate.now().plusDays(3)).reservationStatus("active").room(room).build();
+        Reservation reservation2 = Reservation.builder().id(2L).reservationDate(LocalDate.now()).reservationStartDate(LocalDate.now().plusDays(2)).reservationEndDate(LocalDate.now().plusDays(4)).reservationStatus("active").room(room).build();
 
-        Mockito.doReturn(Arrays.asList(reservation1))
-                .when(mockReservationRepository).findOverlappingReservations(reservation2.getRoom(), reservation2.getReservationStartDate(), reservation2.getReservationEndDate(), reservation2.getId());
+        Mockito.doReturn(Collections.singletonList(reservation1)).when(mockReservationRepository).findOverlappingReservations(reservation2.getRoom(), reservation2.getReservationStartDate(), reservation2.getReservationEndDate(), reservation2.getId());
         assertFalse(reservationService.isRoomAvailable(reservation2));
     }
 
     @Test
     void testFindById() {
         Room room = Room.builder().id(1L).seatsQty(43).name("Room1").build();
-        Reservation reservation = Reservation.builder()
-                .id(1L).reservationDate(LocalDate.now())
-                .reservationStartDate(LocalDate.now().plusDays(1))
-                .reservationEndDate(LocalDate.now().plusDays(3))
-                .reservationStatus("active")
-                .room(room)
-                .build();
+        Reservation reservation = Reservation.builder().id(1L).reservationDate(LocalDate.now()).reservationStartDate(LocalDate.now().plusDays(1)).reservationEndDate(LocalDate.now().plusDays(3)).reservationStatus("active").room(room).build();
 
         when(mockReservationRepository.findById(1L)).thenReturn(Optional.of(reservation));
         when(mockReservationRepository.findById(2L)).thenReturn(Optional.empty());
@@ -215,21 +145,9 @@ class ReservationServiceImplTest {
         Room room = Room.builder().id(1L).seatsQty(43).name("Room1").build();
 
         // Create reservations with future end dates
-        Reservation reservation1 = Reservation.builder()
-                .id(1L).reservationDate(LocalDate.now())
-                .reservationStartDate(LocalDate.now().plusDays(1))
-                .reservationEndDate(LocalDate.now().plusDays(3))
-                .reservationStatus("finished")
-                .room(room)
-                .build();
+        Reservation reservation1 = Reservation.builder().id(1L).reservationDate(LocalDate.now()).reservationStartDate(LocalDate.now().plusDays(1)).reservationEndDate(LocalDate.now().plusDays(3)).reservationStatus("finished").room(room).build();
         // Create reservations with past end dates
-        Reservation reservation2 = Reservation.builder()
-                .id(2L).reservationDate(LocalDate.now())
-                .reservationStartDate(LocalDate.now().minusDays(2))
-                .reservationEndDate(LocalDate.now().minusDays(1))
-                .reservationStatus("active")
-                .room(room)
-                .build();
+        Reservation reservation2 = Reservation.builder().id(2L).reservationDate(LocalDate.now()).reservationStartDate(LocalDate.now().minusDays(2)).reservationEndDate(LocalDate.now().minusDays(1)).reservationStatus("active").room(room).build();
 
         when(mockReservationRepository.findAll()).thenReturn(Arrays.asList(reservation1, reservation2));
 
@@ -245,13 +163,7 @@ class ReservationServiceImplTest {
     void testFindAllByUserWhenUserHaveOneReservation() {
         User userWithOneReservation = User.builder().id(1L).build();
 
-        Reservation reservation1 = Reservation.builder()
-                .id(1L).reservationDate(LocalDate.now())
-                .reservationStartDate(LocalDate.now().plusDays(1))
-                .reservationEndDate(LocalDate.now().plusDays(2))
-                .reservationStatus("active")
-                .user(userWithOneReservation)
-                .build();
+        Reservation reservation1 = Reservation.builder().id(1L).reservationDate(LocalDate.now()).reservationStartDate(LocalDate.now().plusDays(1)).reservationEndDate(LocalDate.now().plusDays(2)).reservationStatus("active").user(userWithOneReservation).build();
 
         when(mockReservationRepository.findAllByUser(userWithOneReservation)).thenReturn(List.of(reservation1));
         List<Reservation> userReservations1 = reservationService.findAllByUser(userWithOneReservation);
@@ -264,20 +176,8 @@ class ReservationServiceImplTest {
     void testFindAllByUserWhenUserHaveMoreThanOneReservation() {
         User userWithTwoReservations = User.builder().id(2L).build();
 
-        Reservation reservation2 = Reservation.builder()
-                .id(2L).reservationDate(LocalDate.now())
-                .reservationStartDate(LocalDate.now().plusDays(3))
-                .reservationEndDate(LocalDate.now().plusDays(4))
-                .reservationStatus("active")
-                .user(userWithTwoReservations)
-                .build();
-        Reservation reservation3 = Reservation.builder()
-                .id(3L).reservationDate(LocalDate.now())
-                .reservationStartDate(LocalDate.now().plusDays(5))
-                .reservationEndDate(LocalDate.now().plusDays(6))
-                .reservationStatus("active")
-                .user(userWithTwoReservations)
-                .build();
+        Reservation reservation2 = Reservation.builder().id(2L).reservationDate(LocalDate.now()).reservationStartDate(LocalDate.now().plusDays(3)).reservationEndDate(LocalDate.now().plusDays(4)).reservationStatus("active").user(userWithTwoReservations).build();
+        Reservation reservation3 = Reservation.builder().id(3L).reservationDate(LocalDate.now()).reservationStartDate(LocalDate.now().plusDays(5)).reservationEndDate(LocalDate.now().plusDays(6)).reservationStatus("active").user(userWithTwoReservations).build();
 
         when(mockReservationRepository.findAllByUser(userWithTwoReservations)).thenReturn(List.of(reservation2, reservation3));
         List<Reservation> userReservations2 = reservationService.findAllByUser(userWithTwoReservations);

@@ -47,9 +47,8 @@ public class ReservationServiceImpl implements ReservationService {
             reservation.prePersist();
 
             if (reservation.getId() != null) {
-                /**
-                 * If reservation has an ID, it means it already exists, so update it
-                 */
+
+                // If reservation has an ID, it means it already exists, so update it
                 Optional<Reservation> existingReservation = reservationRepository.findById(reservation.getId());
                 if (existingReservation.isPresent()) {
                     Reservation oldReservation = existingReservation.get();
@@ -63,10 +62,7 @@ public class ReservationServiceImpl implements ReservationService {
                 }
             }
 
-            /**
-             * If the reservation does not have an ID or does not exist, save it as a new reservation
-             */
-
+            // If the reservation does not have an ID or does not exist, save it as a new reservation
             reservationRepository.save(reservation);
             return true;
         } else {

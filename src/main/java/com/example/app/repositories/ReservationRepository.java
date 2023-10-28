@@ -10,14 +10,14 @@ import org.springframework.data.repository.query.Param;
 import java.time.LocalDate;
 import java.util.List;
 
-public interface ReservationRepository extends JpaRepository <Reservation, Long> {
+public interface ReservationRepository extends JpaRepository<Reservation, Long> {
     /**
      * Finds all reservations associated with a specific user.
      */
     List<Reservation> findAllByUser(User user);
 
     /**
-     * Custom query to find overlapping reservations for a given room and time period.
+     * Finds overlapping reservations for a given room and time period.
      */
     @Query("SELECT r FROM Reservation r " +
             "WHERE r.room = :room " +
@@ -31,7 +31,7 @@ public interface ReservationRepository extends JpaRepository <Reservation, Long>
             @Param("reservationId") Long reservationId);
 
     /**
-     * Custom query to find reservations by status.
+     * Finds reservations by status.
      */
     @Query("SELECT r FROM Reservation r where r.reservationStatus = :status")
     List<Reservation> findAllByReservationStatus(@Param("status") String status);

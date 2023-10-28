@@ -62,14 +62,11 @@ public class UserController {
     public String addReservation(@Valid Reservation reservation, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
-            model.addAttribute("errors", bindingResult.getFieldErrors().stream()
-                    .collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage)));
+            model.addAttribute("errors", bindingResult.getFieldErrors().stream().collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage)));
             model.addAttribute("rooms", roomService.findAll());
             return "reservation/reservation-add";
         }
-        /**
-         * Attempt to add the reservation, handle conflicts
-         */
+        //Attempt to add the reservation, handle conflicts
         boolean reservationAdded = reservationService.addReservation(reservation);
         if (reservationAdded) {
             return "redirect:/user";
@@ -112,14 +109,11 @@ public class UserController {
     public String updateReservation(@Valid Reservation reservation, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
-            model.addAttribute("errors", bindingResult.getFieldErrors().stream()
-                    .collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage)));
+            model.addAttribute("errors", bindingResult.getFieldErrors().stream().collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage)));
             model.addAttribute("rooms", roomService.findAll());
             return "reservation/reservation-update";
         }
-        /**
-         * Attempt to update the reservation, handle conflicts
-         */
+
         boolean reservationAdded = reservationService.addReservation(reservation);
         if (reservationAdded) {
             return "redirect:/user";

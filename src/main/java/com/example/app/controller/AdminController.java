@@ -44,9 +44,7 @@ public class AdminController {
     }
 
     @GetMapping("/report_2")
-    public String findUsers(@RequestParam(name = "userSelectionType") String userSelectionType,
-                            @RequestParam(name = "selectedUsersId") Long selectedUserId,
-                            Model model) {
+    public String findUsers(@RequestParam(name = "userSelectionType") String userSelectionType, @RequestParam(name = "selectedUsersId") Long selectedUserId, Model model) {
         model.addAttribute("userList", userService.findAll());
         if (userSelectionType.equals("all")) {
             model.addAttribute("reservations", reservationService.findAll());

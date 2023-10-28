@@ -27,8 +27,6 @@ public class AuthService implements UserDetailsService {
             throw new UsernameNotFoundException("No username " + username + " found");
         }
 
-        return new org.springframework.security.core.userdetails.User(user.getUsername(),
-                user.getPassword(), user.getActive(), true, true, true,
-                Set.of(new SimpleGrantedAuthority(user.getRole())));
+        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), user.getActive(), true, true, true, Set.of(new SimpleGrantedAuthority(user.getRole())));
     }
 }
