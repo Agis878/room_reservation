@@ -9,14 +9,12 @@ import java.time.LocalDate;
 
 public class TestFixtures {
 
-
     public static Room room() {
         return Room.builder()
                 .name("Room1")
                 .seatsQty(43)
                 .build();
     }
-
 
     public static User user() {
         return User.builder()
@@ -31,7 +29,6 @@ public class TestFixtures {
 
     public static Reservation reservation(Room room, User user) {
         Reservation reservation = Reservation.builder()
-
                 .room(room)
                 .reservationStartDate(LocalDate.now().plusDays(7))
                 .reservationEndDate(LocalDate.now().plusDays(9))
@@ -39,8 +36,27 @@ public class TestFixtures {
 
         reservation.prePersist();
         return reservation;
-
     }
 
+    public static Reservation reservation(Long id, User user, Room room) {
+        Reservation reservation = Reservation.builder()
+                .id(id)
+                .user(user)
+                .reservationStartDate(LocalDate.now().plusDays(7))
+                .reservationEndDate(LocalDate.now().plusDays(9))
+                .room(room)
+                .build();
+        reservation.prePersist();
+        return reservation;
+    }
 
+    public static Reservation reservation(Long id) {
+        Reservation reservation = Reservation.builder()
+                .id(id)
+                .reservationStartDate(LocalDate.now().plusDays(7))
+                .reservationEndDate(LocalDate.now().plusDays(9))
+                .build();
+        reservation.prePersist();
+        return reservation;
+    }
 }
