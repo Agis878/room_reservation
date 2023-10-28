@@ -3,9 +3,11 @@
 
 
 # Room Reservation Project
+
+## Description
+
 The Room Reservation Project is a system that allows you to reserve available rooms for a specific date. Users,
-After logging in, they can make reservations, edit their reservations or delete them.
-after logging in, they can make reservations, edit their reservations or delete them.
+after logging in, can make reservations, edit their reservations, or delete them.
 The system administrator has full access to the reservation list and the ability to generate reports.
 
 ## Technologies Used
@@ -21,6 +23,54 @@ The Room Reservation project was implemented using the following technologies:
    - CSS: UI styling.
 6. **Dependency Management**
    - Maven: A tool for managing dependencies and building a project.
+7. **Testing Frameworks:**
+   - JUnit: A Java framework for writing and running unit tests.
+   - Mockito: A mocking framework for Java that allows the creation of mock objects in tests.
+
+## Features
+
+1. **Registration and Login**
+   - User registration
+   - Login panel for authenticated users
+
+3. **Adding Reservations**
+   - Checking room availability for a selected date through the list of reservations assigned to a specific room.
+   - Users can add reservations by creating new objects of the Reservation class with the appropriate data and assigning
+     them to the appropriate rooms and users.
+
+4. **Editing and Canceling Reservations**
+   - The system allows editing reservation parameters, such as hours and room, through appropriate forms or editing
+     functions.
+
+5. **Administrative Panel**
+   - The system administrator has full access to the list of reservations and the ability to generate reports.
+
+6. **Validation and Verification**
+   - The system validates entered data, such as dates and times, to ensure they are correct.
+   - Validation of room availability before confirming a reservation checks if the room is available at the selected
+     time before creating a new reservation.
+
+7. **Authentication and Authorization**
+   - Implementation of user authentication and registration mechanisms before room reservation.
+   - Granting administrator role with appropriate permissions to users with this role.
+
+## Unit Tests
+
+To ensure the correctness of the project, unit tests were written using the JUnit framework and the Mockito library.
+
+### Repository Tests
+
+- Verification of the correctness of actions on the user and reservation repository.
+
+### Service Tests
+
+- Unit tests for the reservation management service, including tests for adding, editing and verifying the behavior of
+  methods for various user reservation scenarios.
+
+### Controller Tests
+
+- Tests for the user controller.
+
 
 
 # Projekt Rezerwacji Sal
@@ -40,12 +90,14 @@ Projekt Rezerwacji Sal został zrealizowany przy użyciu następujących technol
 2. **Framework:** Spring Boot
 3. **Zabezpieczenia:** Spring Security
 4. **Baza Danych:** MySQL
-5. **Frontend:** 
-   -    JSP (JavaServer Pages): Umożliwia generowanie dynamicznej treści oraz integrację z kodem Java po stronie serwera.
+5. **Frontend:**
+   - JSP (JavaServer Pages): Umożliwia generowanie dynamicznej treści oraz integrację z kodem Java po stronie serwera.
    -  CSS: Stylizacja interfejsu użytkownika.
 6. **Zarządzanie Zależnościami**
    - Maven: Narzędzie do zarządzania zależnościami i budowy projektu.
-
+7. **Frameworki Testowe:**
+   - JUnit: Framework dla języka Java do pisania i uruchamiania testów jednostkowych.
+   - Mockito: Framework do tworzenia mocków w testach jednostkowych.
 
 
 
@@ -57,11 +109,13 @@ Projekt Rezerwacji Sal został zrealizowany przy użyciu następujących technol
 
 3. **Dodawanie Rezerwacji**
     - Sprawdzanie dostępności sali w wybranym terminie poprzez listę rezerwacji przypisanych do danej sali.
-    - Użytkownicy mogą dodawać rezerwacje, tworząc nowe obiekty klasy Reservation z odpowiednimi danymi i             przypisując je do odpowiednich sal i użytkowników.
+    - Użytkownicy mogą dodawać rezerwacje, tworząc nowe obiekty klasy Reservation z odpowiednimi danymi i przypisując je
+      do odpowiednich sal i użytkowników.
     
 
 4. **Edycja i Anulowanie Rezerwacji**
-    - System umożliwia edycję parametrów rezerwacji, takich jak godziny i sala, poprzez odpowiednie formularze        lub funkcje edycji.
+   - System umożliwia edycję parametrów rezerwacji, takich jak godziny i sala, poprzez odpowiednie formularze lub
+     funkcje edycji.
 
 5. **Panel Administracyjny**
     - Administrator systemu ma pełny dostęp do listy rezerwacji oraz możliwość generowania raportów.
@@ -74,25 +128,21 @@ Projekt Rezerwacji Sal został zrealizowany przy użyciu następujących technol
     - Implementacja mechanizmu uwierzytelniania i rejestracji użytkowników przed rezerwacją sali.
     - Nadawanie roli administratora z odpowiednimi uprawnieniami użytkownikom o tej roli.
 
-## Instrukcja Uruchomienia
+## Testy Jednostkowe
 
-1. **Instalacja zależności**
-    - Upewnij się, że posiadasz zainstalowaną odpowiednią wersję języka programowania i frameworka użytego w projekcie.
-   - Upewnij się, że posiadasz zainstalowaną odpowiednią wersję języka oprogramowania i frameworka użytego w projekcie.
-    - Zainstaluj wymagane biblioteki i narzędzia, korzystając z pliku `requirements.txt` (jeśli projekt korzysta z Pythona).
-   - Zainstaluj wymagane biblioteki i narzędzia.
-   - Zainstaluj zależności frameworka i inne narzędzia według dokumentacji.
-   - Zainstaluj zależności frameworka i inne narzędzia.
+W celu zapewnienia poprawności projektu napisano testy jednostkowe przy użyciu frameworka JUnit oraz biblioteki Mockito.
 
-2. **Konfiguracja Bazy Danych**
-    - Skonfiguruj połączenie z bazą danych zgodnie z ustawieniami projektu.
+### Testy Repozytorium
 
+- Weryfikacja poprawności operacji w repozytorium użytkowników i rezerwacji.
 
-3. **Uruchomienie Aplikacji**
-   - Uruchom aplikację, korzystając z odpowiednich komend lub skryptów.
-   - Uruchom aplikację przy uzyciu klasy RoomReservationApplication.Znajdź ikonę "Run" lub kliknij prawym            przyciskiem myszy na pliku i wybierz opcję "Run RoomReservationApplication.main()".
-   - Możesz skorzystać z gotowej bazy insertów do bazy danych znajdującej się w pliku import.sql
+### Testy Servisu
 
-4. **Uzyskanie Dostępu**
-    - Zarejestruj się lub zaloguj jako administrator lub użytkownik, aby uzyskać dostęp do pełnych funkcji.
+- Testy jednostkowe dla usługi zarządzania rezerwacjami, obejmujące testy dodawania, edytowania oraz weryfikację
+  zachowania metod w różnych scenariuszach dotyczących rezerwacji użytkownika.
+
+### Testy Kontrolera
+
+- Testy kontrolera użytkownika.
+
 
